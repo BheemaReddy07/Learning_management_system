@@ -1,5 +1,5 @@
 import express from 'express'
-import { loginUser,    requestForgetPasswordOTP,  requestOTP, resetPassword, verifyOTPandRegister} from '../controllers/userController.js'
+import { requestForgetPasswordOTP,requestOTP,verifyOTPandRegister,loginUser,resetPassword} from '../controllers/userController.js'
 
 
 
@@ -12,6 +12,7 @@ userRouter.post('/register/verifyotp-register',verifyOTPandRegister)
 userRouter.post('/login',loginUser)
 userRouter.post('/forgot/request-otp',requestForgetPasswordOTP)
 userRouter.post('/forgot/reset',resetPassword)
+ 
 
 
 

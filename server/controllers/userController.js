@@ -3,7 +3,7 @@ import bcrypt, { genSalt } from "bcrypt";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import userModel from '../models/userModel.js'
-
+import { generateToken } from "../utils/generateToken.js";
 
 
 // function to create otp
@@ -11,11 +11,10 @@ import userModel from '../models/userModel.js'
 const generateOTP = () => {
     return Math.floor(100000 + Math.random() * 900000).toString();
   };
-
-
-//function to send otp
-
- const sendOTPEmail = async (email, otp, name) => {
+  
+  //function to send otp
+  
+  const sendOTPEmail = async (email, otp, name) => {
     const transporter = nodemailer.createTransport({
       service: "Gmail",
       auth: {
@@ -41,10 +40,8 @@ const generateOTP = () => {
       throw new Error("Error sending OTP email");
     }
   };
-
-
   //API to register the user
-const requestOTP = async (req, res) => {
+  const requestOTP = async (req, res) => {
     try {
       const { name, email, password } = req.body;
       if (!name || !email || !password) {
@@ -93,13 +90,10 @@ const requestOTP = async (req, res) => {
       res.json({ success: false, message: "Error sending OTP" });
     }
   };
-
-
-
-
+  
   //API for the verify and register
-
-const verifyOTPandRegister = async (req, res) => {
+  
+  const verifyOTPandRegister = async (req, res) => {
     const { email, otp, password, name, repassword } = req.body;
   
     try {
@@ -125,18 +119,16 @@ const verifyOTPandRegister = async (req, res) => {
         verified: true,
       });
   
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-      res.json({ success: true, token, message: "registration successfull" });
+      generateToken(res, user, `Welcome  ${user.name}`);
     } catch (error) {
       console.error("Error verifying OTP!!:", error);
       res.json({ success: false, message: "Error verifying OTP!!!" });
     }
   };
-
   
   //API for userLogin
-
-const loginUser = async (req, res) => {
+  
+  const loginUser = async (req, res) => {
     try {
       const { email, password } = req.body;
       const user = await userModel.findOne({ email });
@@ -148,8 +140,7 @@ const loginUser = async (req, res) => {
       const isMatch = await bcrypt.compare(password, user.password);
   
       if (isMatch) {
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-        res.json({ success: true, token });
+        generateToken(res, user, `Welcome back ${user.name}`);
       } else {
         res.json({ success: false, message: "Incorrect Password" });
       }
@@ -158,9 +149,7 @@ const loginUser = async (req, res) => {
       console.log(error.message);
     }
   };
-
-
-
+  
   const requestForgetPasswordOTP = async (req, res) => {
     const { name, email } = req.body;
     try {
@@ -182,7 +171,6 @@ const loginUser = async (req, res) => {
       console.log(error.message);
     }
   };
-
   
   const resetPassword = async (req, res) => {
     const { email, password, repassword, otp } = req.body;
@@ -247,8 +235,6 @@ const loginUser = async (req, res) => {
   const HOUR = 1 * 60 * 1000; // 1 hour in milliseconds
   setInterval(cleanupExpiredUsers, HOUR);
   
-
-
   export {
-    requestOTP, loginUser, verifyOTPandRegister, requestForgetPasswordOTP, resetPassword
+    requestOTP,verifyOTPandRegister,requestForgetPasswordOTP,resetPassword,loginUser
   };

@@ -1,13 +1,22 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons'
-
+import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
+import { AppContext } from "../context/AppContext";
+import {useNavigate} from 'react-router-dom'
+import {toast} from 'react-toastify'
+import axios from 'axios'
 const Login = () => {
-   
+  const navigate = useNavigate()
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
 
-  const [state, setState] = useState("Login"); // "Login" or "Sign Up"
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
+  const { setShowLogin,token,setToken ,backendurl,} = useContext(AppContext);
+
+  const [state, setState] = useState("Login");
   const [forgotPasswordMode, setForgotPasswordMode] = useState(false);
   const [otpSent, setOTPSent] = useState(false);
 
@@ -17,14 +26,15 @@ const Login = () => {
   const [repassword, setRePassword] = useState("");
   const [otp, setOTP] = useState("");
 
-  const [showPassword, setShowPassword] = useState(false)
-  const [showRePassword, setShowRePassword] = useState(false)
-
- 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRePassword, setShowRePassword] = useState(false);
+  
 
   const handleOTPRequest = async () => {
     const loadingNotification = toast.loading("Sending OTP....");
-    setTimeout(() => { toast.dismiss(loadingNotification) }, 5000);
+    setTimeout(() => {
+      toast.dismiss(loadingNotification);
+    }, 5000);
     try {
       const endpoint =
         state === "Sign Up"
@@ -32,9 +42,7 @@ const Login = () => {
           : "/api/user/forgot/request-otp";
 
       const payload =
-        state === "Sign Up"
-          ? { name, email, password }
-          : { email };
+        state === "Sign Up" ? { name, email, password ,repassword} : { email,password,repassword };
 
       const { data } = await axios.post(backendurl + endpoint, payload);
       if (data.success) {
@@ -50,7 +58,6 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
 
     try {
       if (state === "Sign Up") {
@@ -68,6 +75,7 @@ const Login = () => {
           if (otpSent) {
             localStorage.setItem("token", data.token);
             setToken(data.token);
+            setShowLogin(false)
           }
         } else {
           toast.error(data.message);
@@ -84,6 +92,7 @@ const Login = () => {
         const { data } = await axios.post(backendurl + endpoint, payload);
         if (data.success) {
           toast.success(data.message);
+          navigate("/")
           if (otpSent) {
             setForgotPasswordMode(false); // This should disable Forgot Password mode after reset
             setOTPSent(false); // Reset OTP sent status after reset
@@ -103,6 +112,8 @@ const Login = () => {
           localStorage.setItem("token", data.token);
           setToken(data.token);
           toast.success("Login successful!");
+          setShowLogin(false)
+          navigate("/")
         } else {
           toast.error(data.message);
         }
@@ -113,8 +124,21 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}  className="min-h-[80vh] flex items-center" >
-      <div className="flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-zinc-600 text-sm shadow-lg ">
+    <div className=" fixed inset-0 z-10 flex items-center justify-center backdrop-blur-sm bg-black/30">
+     <form
+        onSubmit={handleSubmit}  className="min-h-[80vh] flex items-center" >
+      <div className="bg-white flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-zinc-600 text-sm shadow-lg ">
+      <img
+            src="cross_icon.svg"
+            alt="Close"
+            className="ml-80 w-3 h-3 cursor-pointer transition-transform transform hover:scale-110"
+            onClick={() => {
+              setState("Login");
+              setForgotPasswordMode(false);
+              setOTPSent(false);
+              setShowLogin(false);
+            }}
+          />
         <p className="text-2xl font-semibold">
           {state === "Sign Up"
             ? "Create Account"
@@ -129,6 +153,7 @@ const Login = () => {
               className="border border-zinc-300 rounded w-full p-2 mt-1"
               type="text"
               value={name}
+              placeholder="Enter Name"
               onChange={(e) => setName(e.target.value)}
               required
             />
@@ -141,6 +166,7 @@ const Login = () => {
             className="border border-zinc-300 rounded w-full p-2 mt-1"
             type="email"
             value={email}
+            placeholder="Enter a Valid Email"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
@@ -154,6 +180,7 @@ const Login = () => {
               className="border border-zinc-300 rounded w-full p-2 mt-1 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               type={showPassword ? 'text' : 'password'}
               value={password}
+              placeholder={forgotPasswordMode?"New Password":"Password"}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
@@ -180,6 +207,7 @@ const Login = () => {
                 className="border border-zinc-300 rounded w-full p-2 mt-1 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 type={showRePassword ? 'text' : 'password'}
                 value={repassword}
+                placeholder={forgotPasswordMode?"New Re-Password":"Re-Password"}
                 onChange={(e) => setRePassword(e.target.value)}
                 required
               />
@@ -206,6 +234,7 @@ const Login = () => {
               className="border border-zinc-300 rounded w-full p-2 mt-1"
               type="text"
               value={otp}
+              placeholder="OTP"
               onChange={(e) => setOTP(e.target.value)}
               required
             />
@@ -215,7 +244,7 @@ const Login = () => {
         {state === "Login" && !forgotPasswordMode && !otpSent && (
           <button
             type="submit"
-            className="bg-primary text-white w-full py-2 rounded-md text-base"
+            className="bg-blue-700 text-white w-full py-2 rounded-md text-base"
           >
             Login
           </button>
@@ -225,7 +254,7 @@ const Login = () => {
           <button
             type="button"
             onClick={handleOTPRequest}
-            className="bg-primary text-white w-full py-2 rounded-md text-base"
+            className="bg-blue-700 text-white w-full py-2 rounded-md text-base"
           >
             Send OTP
           </button>
@@ -234,7 +263,7 @@ const Login = () => {
         {otpSent && (
           <button
             type="submit"
-            className="bg-primary text-white w-full py-2 rounded-md text-base"
+            className="bg-blue-700 text-white w-full py-2 rounded-md text-base"
           >
             {forgotPasswordMode ? "Reset Password" : "Create Account"}
           </button>
@@ -281,6 +310,7 @@ const Login = () => {
         )}
       </div>
     </form>
+    </div>
   );
 };
 
