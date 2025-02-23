@@ -28,7 +28,7 @@ const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
-  
+  const [isLoading,setIsLoading] = useState(false);
 
   const handleOTPRequest = async () => {
     const loadingNotification = toast.loading("Sending OTP....");
@@ -111,7 +111,7 @@ const Login = () => {
         if (data.success) {
           localStorage.setItem("token", data.token);
           setToken(data.token);
-          toast.success("Login successful!");
+          toast.success(data.message);
           setShowLogin(false)
           navigate("/")
         } else {

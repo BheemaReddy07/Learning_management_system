@@ -1,5 +1,6 @@
 LMS/
 ├─ client/
+│  ├─ .env
 │  ├─ .gitignore
 │  ├─ README.md
 │  ├─ components.json
@@ -10,7 +11,7 @@ LMS/
 │  ├─ package.json
 │  ├─ postcss.config.js
 │  ├─ public/
-│  │  └─ vite.svg
+│  │  └─ cross_icon.svg
 │  ├─ src/
 │  │  ├─ App.css
 │  │  ├─ App.jsx
@@ -23,11 +24,14 @@ LMS/
 │  │  │     ├─ input.jsx
 │  │  │     ├─ label.jsx
 │  │  │     └─ tabs.jsx
+│  │  ├─ context/
+│  │  │  └─ AppContext.jsx
 │  │  ├─ index.css
 │  │  ├─ lib/
 │  │  │  └─ utils.js
 │  │  ├─ main.jsx
 │  │  └─ pages/
+│  │     ├─ Home.jsx
 │  │     └─ Login.jsx
 │  ├─ tailwind.config.js
 │  └─ vite.config.js
