@@ -9,12 +9,14 @@ import Login from './pages/Login'
 import Navbar from './components/Navbar'
 import Home from './pages/students/Home'
 import Footer from './components/Footer'
+import MyLearning from './pages/students/MyLearning'
  
 function App() {
   
 
   return (
-    <div className="bg-gradient-to-b from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900">
+    <div className="min-h-screen">
+
 
       <div className='mx-4 sm:mx-[10%]'>
     <ToastContainer />
@@ -23,6 +25,7 @@ function App() {
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/login' element={<Login />} />
+      <Route path='/my-learnings' element={<MyLearning />} />
     </Routes>
     <Footer />
    </div>
