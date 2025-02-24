@@ -24,7 +24,7 @@ const Course = () => {
             <h1 className="font-medium text-sm">Saaho</h1>
           </div>
           <Badge className={'bg-blue-600 text-white px-2 py-1 text-xs rounded-full'}>
-             Advanced
+              E2-SEM2
           </Badge>
         </div>
         <div >

@@ -37,7 +37,7 @@ const Navbar = () => {
   const user = false;
   const navigate  = useNavigate();
   return (
-    <div className="h-16 dark:bg-[#0A0A0A] bg-white border-b dark:border-b-gray-80 fixed top-0 left-0 right-0 duration-300 z-10">
+    <div className="h-16 dark:bg-[#0A0A0A] bg-white border-b-2 dark:border-b-gray-80 fixed top-0 left-0 right-0 duration-300 z-10 bg-gradient-to-b from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900">
       {/*Desktop */}
       <div className=" max-w-7xl mx-auto hidden md:flex justify-between items-center  gap-10 h-full">
         <div className="flex items-center gap-2">

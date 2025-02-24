@@ -3,7 +3,7 @@ import React from "react";
 const Header = () => {
   return (
     <div
-      className="flex flex-col md:flex-row flex-wrap bg-gradient-to-r from-teal-500 to-blue-900 rounded-md px-6 mt-24 md:px-10 lg:px-20"
+      className="flex flex-col md:flex-row flex-wrap bg-gradient-to-r from-teal-500 to-blue-900 rounded-md px-6 mt-16 md:px-10 lg:px-20"
     >
       {/*----------- Left Side -----------*/}
       <div className="md:w-1/2 flex flex-col items-start justify-center gap-4 py-10 m-auto md:py-[10vw] md:mb-[-30px]">
