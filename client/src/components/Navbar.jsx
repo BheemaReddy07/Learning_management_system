@@ -25,17 +25,24 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Separator } from "@radix-ui/react-dropdown-menu";
+
+import { useNavigate } from "react-router-dom";
+
+
+
+
+
 const Navbar = () => {
   const { token } = useContext(AppContext);
   const user = false;
-  
+  const navigate  = useNavigate();
   return (
     <div className="h-16 dark:bg-[#0A0A0A] bg-white border-b dark:border-b-gray-80 fixed top-0 left-0 right-0 duration-300 z-10">
       {/*Desktop */}
       <div className=" max-w-7xl mx-auto hidden md:flex justify-between items-center  gap-10 h-full">
         <div className="flex items-center gap-2">
           <School size={"30"} />
-          <h1 className="hidden md:block font-extrabold text-2xl">OngoLearn</h1>
+          <h1 onClick={()=>navigate("/")}  className="hidden md:block font-extrabold text-2xl cursor-pointer">OngoLearn</h1>
         </div>
 
         {/* User Icons and dark mode icon */}
