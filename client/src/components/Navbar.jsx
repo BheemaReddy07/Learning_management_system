@@ -33,9 +33,16 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 const Navbar = () => {
-  const { token } = useContext(AppContext);
-  const user = false;
+  const { token ,setToken,setShowLogin,showLogin } = useContext(AppContext);
   const navigate  = useNavigate();
+  const logout = ()=>{
+    setToken(false);
+    localStorage.removeItem("token")
+    navigate("/")
+  }
+
+  const user = false;
+  
   return (
     <div className="h-16 dark:bg-[#0A0A0A] bg-white border-b-2 dark:border-b-gray-80 fixed top-0 left-0 right-0 duration-300 z-10 bg-gradient-to-b from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900">
       {/*Desktop */}
@@ -64,7 +71,7 @@ const Navbar = () => {
                 <DropdownMenuGroup className="cursor-pointer">
                   <DropdownMenuItem><Link to="/my-learnings">My Learning</Link></DropdownMenuItem>
                   <DropdownMenuItem><Link to="/profile">Edit Profile</Link></DropdownMenuItem>
-                  <DropdownMenuItem className="cursor-pointer">Log out</DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer" onClick={logout}>Log out</DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
 
@@ -72,7 +79,7 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button variant="outline">Login</Button>
+            <Button onClick={()=>setShowLogin(true)} variant="outline">Login</Button>
           )}
 
           <DarkMode />

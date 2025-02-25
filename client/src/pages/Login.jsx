@@ -28,7 +28,7 @@ const Login = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showRePassword, setShowRePassword] = useState(false);
-  const [isLoading,setIsLoading] = useState(false);
+   
 
   const handleOTPRequest = async () => {
     const loadingNotification = toast.loading("Sending OTP....");
