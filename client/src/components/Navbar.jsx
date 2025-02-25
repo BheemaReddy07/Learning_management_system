@@ -33,7 +33,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 
 const Navbar = () => {
-  const { token ,setToken,setShowLogin,showLogin } = useContext(AppContext);
+  const { token ,setToken,setShowLogin,showLogin,userData } = useContext(AppContext);
   const navigate  = useNavigate();
   const logout = ()=>{
     setToken(false);
@@ -59,10 +59,10 @@ const Navbar = () => {
               <DropdownMenuTrigger asChild>
                 <Avatar className="cursor-pointer">
                   <AvatarImage className="cursor-pointer"
-                    src="https://github.com/shadcn.png"
+                    src={userData?.photoUrl || "https://github.com/shadcn.png"}
                     alt="@shadcn"
                   />
-                  <AvatarFallback className="cursor-pointer">CN</AvatarFallback>
+                  <AvatarFallback className="cursor-pointer">{userData?.name?.[0].toUpperCase() || "N/A"}</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
@@ -70,7 +70,7 @@ const Navbar = () => {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup className="cursor-pointer">
                   <DropdownMenuItem><Link to="/my-learnings">My Learning</Link></DropdownMenuItem>
-                  <DropdownMenuItem><Link to="/profile">Edit Profile</Link></DropdownMenuItem>
+                  <DropdownMenuItem><Link to="/profile">Profile</Link></DropdownMenuItem>
                   <DropdownMenuItem className="cursor-pointer" onClick={logout}>Log out</DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
