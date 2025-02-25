@@ -28,28 +28,30 @@ import { Separator } from "@radix-ui/react-dropdown-menu";
 
 import { Link, useNavigate } from "react-router-dom";
 
-
-
-
-
 const Navbar = () => {
-  const { token ,setToken,setShowLogin,showLogin,userData } = useContext(AppContext);
-  const navigate  = useNavigate();
-  const logout = ()=>{
+  const { token, setToken, setShowLogin, showLogin, userData } =
+    useContext(AppContext);
+  const navigate = useNavigate();
+  const logout = () => {
     setToken(false);
-    localStorage.removeItem("token")
-    navigate("/")
-  }
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
   const user = false;
-  
+
   return (
     <div className="h-16 dark:bg-[#0A0A0A] bg-white border-b-2 dark:border-b-gray-80 fixed top-0 left-0 right-0 duration-300 z-10 bg-gradient-to-b from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900">
       {/*Desktop */}
       <div className=" max-w-7xl mx-auto hidden md:flex justify-between items-center  gap-10 h-full">
         <div className="flex items-center gap-2">
           <School size={"30"} />
-          <h1 onClick={()=>navigate("/")}  className="hidden md:block font-extrabold text-2xl cursor-pointer">OngoLearn</h1>
+          <h1
+            onClick={() => navigate("/")}
+            className="hidden md:block font-extrabold text-2xl cursor-pointer"
+          >
+            OngoLearn
+          </h1>
         </div>
 
         {/* User Icons and dark mode icon */}
@@ -58,28 +60,44 @@ const Navbar = () => {
             <DropdownMenu className="cursor-pointer">
               <DropdownMenuTrigger asChild>
                 <Avatar className="cursor-pointer">
-                  <AvatarImage className="cursor-pointer"
+                  <AvatarImage
+                    className="cursor-pointer"
                     src={userData?.photoUrl || "https://github.com/shadcn.png"}
                     alt="@shadcn"
                   />
-                  <AvatarFallback className="cursor-pointer">{userData?.name?.[0].toUpperCase() || "N/A"}</AvatarFallback>
+                  <AvatarFallback className="cursor-pointer">
+                    {userData?.name?.[0].toUpperCase() || "N/A"}
+                  </AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup className="cursor-pointer">
-                  <DropdownMenuItem><Link to="/my-learnings">My Learning</Link></DropdownMenuItem>
-                  <DropdownMenuItem><Link to="/profile">Profile</Link></DropdownMenuItem>
-                  <DropdownMenuItem className="cursor-pointer" onClick={logout}>Log out</DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link to="/my-learnings">My Learning</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <Link to="/profile">Profile</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer" onClick={logout}>
+                    Log out
+                  </DropdownMenuItem>
                 </DropdownMenuGroup>
-                <DropdownMenuSeparator />
-
-                <DropdownMenuItem className="cursor-pointer">Dashboard</DropdownMenuItem>
+                {userData?.role === "instructor" && (
+                  <>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem className="cursor-pointer">
+                      Dashboard
+                    </DropdownMenuItem>
+                  </>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button onClick={()=>setShowLogin(true)} variant="outline">Login</Button>
+            <Button onClick={() => setShowLogin(true)} variant="outline">
+              Login
+            </Button>
           )}
 
           <DarkMode />
@@ -97,7 +115,7 @@ const Navbar = () => {
 export default Navbar;
 
 const MobileNavbar = () => {
-    const role = "instructor";
+  const role = "instructor";
   return (
     <Sheet>
       <SheetTrigger asChild>
