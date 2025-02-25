@@ -48,27 +48,27 @@ const Navbar = () => {
         {/* User Icons and dark mode icon */}
         <div className="flex items-center gap-8">
           {token ? (
-            <DropdownMenu>
+            <DropdownMenu className="cursor-pointer">
               <DropdownMenuTrigger asChild>
-                <Avatar>
-                  <AvatarImage
+                <Avatar className="cursor-pointer">
+                  <AvatarImage className="cursor-pointer"
                     src="https://github.com/shadcn.png"
                     alt="@shadcn"
                   />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarFallback className="cursor-pointer">CN</AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuGroup>
+                <DropdownMenuGroup className="cursor-pointer">
                   <DropdownMenuItem><Link to="/my-learnings">My Learning</Link></DropdownMenuItem>
                   <DropdownMenuItem><Link to="/profile">Edit Profile</Link></DropdownMenuItem>
-                  <DropdownMenuItem>Log out</DropdownMenuItem>
+                  <DropdownMenuItem className="cursor-pointer">Log out</DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
 
-                <DropdownMenuItem>Dashboard</DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer">Dashboard</DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
