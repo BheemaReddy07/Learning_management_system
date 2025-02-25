@@ -256,8 +256,6 @@ const getUserProfile = async (req, res) => {
 const updateUserProfile = async (req, res) => {
   try {
     const { userId, name ,phone,branch } = req.body;
-
-    console.log("Received File:", req.file);
     
     if (!userId) {
       return res.json({ success: false, message: "User ID is required" });
