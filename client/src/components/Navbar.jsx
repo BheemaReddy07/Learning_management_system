@@ -88,7 +88,7 @@ const Navbar = () => {
                   <>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem className="cursor-pointer">
-                      Dashboard
+                      <Link to="/admin">Dashboard</Link>
                     </DropdownMenuItem>
                   </>
                 )}
