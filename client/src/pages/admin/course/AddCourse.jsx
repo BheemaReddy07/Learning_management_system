@@ -42,6 +42,7 @@ const AddCourse = () => {
       if(data.success){
         toast.success(data.message)
         setCourseTitle("")
+        navigate("/admin/course")
     
       }
       else{
@@ -61,7 +62,7 @@ const AddCourse = () => {
 
    
   return (
-    <div className="flex-1 mx-10 mt-24">
+    <div className="flex-1  mt-24 mx-[-150px]">
       <div className="mb-4">
         <h1 className="font-bold text-xl">
           Lets add some basic course details for your new course

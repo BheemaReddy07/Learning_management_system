@@ -12,7 +12,7 @@ const AppContextProvider = (props) => {
   const [showLogin, setShowLogin] = useState(false);
   const [userData, setUserData] = useState(false);
   const [lecturers,setLecturers] = useState([])
-
+  const [adminCourses, setAdminCourses] = useState([]);
 
 
   const loadUserProfileData = async () => {
@@ -49,6 +49,25 @@ const AppContextProvider = (props) => {
       toast.error(error.message) 
     }
   }
+
+
+   const getadminCourses = async () => {
+      try {
+        const { data } = await axios.get(
+          backendurl + "/api/course/getadmincourses",
+          { headers: { token } }
+        );
+        if (data.success) {
+          setAdminCourses(data.courses);
+          console.log(data.courses);
+        }
+      } catch (error) {
+        toast.error(error.message);
+        console.log(error.message);
+      }
+    };
+
+
   const value = {
     userData,
     setUserData,
@@ -58,7 +77,8 @@ const AppContextProvider = (props) => {
     showLogin,
     setShowLogin,
     loadUserProfileData,
-    lecturers,setLecturers,getLecturers
+    lecturers,setLecturers,getLecturers,
+    adminCourses,setAdminCourses,getadminCourses
   };
 
   useEffect(()=>{
@@ -73,6 +93,12 @@ const AppContextProvider = (props) => {
   useEffect(()=>{
     getLecturers()
   },[])
+
+
+
+  useEffect(() => {
+    getadminCourses();
+  }, []);
   return (
     <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
   );

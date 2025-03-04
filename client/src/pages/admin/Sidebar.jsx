@@ -6,7 +6,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen sticky">
       {/* Sidebar */}
       <aside className="hidden lg:flex flex-col w-50 bg-gray-100 dark:bg-gray-900 border-r border-gray-300 dark:border-gray-700 fixed left-0 top-0 h-full p-5">
         <div className="mt-20 space-y-4">

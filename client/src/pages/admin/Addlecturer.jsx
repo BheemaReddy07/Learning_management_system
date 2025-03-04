@@ -46,7 +46,7 @@ const AddLecturer = () => {
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className="w-full max-w-4xl mx-auto mt-20 bg-white shadow-md rounded-lg p-8">
+    <form onSubmit={onSubmitHandler} className="w-full max-w-[1300px]   mt-20 bg-white shadow-md rounded-lg p-8 mx-[-150px]">
       <h2 className="text-2xl font-semibold text-gray-800 mb-6">Add Lecturer</h2>
 
       {/* Image Upload */}

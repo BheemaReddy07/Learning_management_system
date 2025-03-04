@@ -19,6 +19,7 @@ import Dashboard from "./pages/admin/Dashboard";
 import CourseTable from "./pages/admin/course/CourseTable";
 import AddCourse from "./pages/admin/course/AddCourse";
 import Addlecturer from "./pages/admin/Addlecturer";
+import EditCourse from "./pages/admin/course/EditCourse";
 const App = () => {
   const navigate = useNavigate();
   const { showLogin, setShowLogin, token } = useContext(AppContext);
@@ -53,6 +54,7 @@ const App = () => {
             <Route path="course" element={<CourseTable />} />
             <Route path="add-lecturer" element={<Addlecturer />} />
             <Route path="course/create"  element={<AddCourse />}/>
+            <Route path="course/:courseId"  element={<EditCourse />}/>
           </Route>
           
         </Routes>
