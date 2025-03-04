@@ -11,13 +11,16 @@ const AppContextProvider = (props) => {
   const backendurl = import.meta.env.VITE_BACKEND_URL;
   const [showLogin, setShowLogin] = useState(false);
   const [userData, setUserData] = useState(false);
+  const [lecturers,setLecturers] = useState([])
+
+
 
   const loadUserProfileData = async () => {
     try {
        const {data} = await axios.get(backendurl + '/api/user/get-profile',{headers:{token}})
        if(data.success){
             setUserData(data.userData)
-            console.log(data.userData)
+             
         }
         else{
             toast.error(data.message)
@@ -29,6 +32,23 @@ const AppContextProvider = (props) => {
     }
   };
 
+
+
+  const getLecturers = async () =>{
+    try {
+      const {data} = await axios.get(backendurl+"/api/lecturer/get-lecturer",{headers:{token}})
+      if(data.success){
+        setLecturers(data.lecturerData);
+        console.log(data.lecturerData)
+      }
+      else{
+        toast.error(data.message)
+    }
+    } catch (error) {
+      console.log(error)
+      toast.error(error.message) 
+    }
+  }
   const value = {
     userData,
     setUserData,
@@ -37,7 +57,8 @@ const AppContextProvider = (props) => {
     backendurl,
     showLogin,
     setShowLogin,
-    loadUserProfileData
+    loadUserProfileData,
+    lecturers,setLecturers,getLecturers
   };
 
   useEffect(()=>{
@@ -49,7 +70,9 @@ const AppContextProvider = (props) => {
     }
      },[token])
   
-
+  useEffect(()=>{
+    getLecturers()
+  },[])
   return (
     <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
   );

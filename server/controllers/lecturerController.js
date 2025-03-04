@@ -37,4 +37,14 @@ const addLecturer = async (req, res) => {
 };
 
 
-export {addLecturer}
+const getLecturers = async (req,res) =>{
+    try {
+        const lecturerData = await lecturerModel.find();
+        res.json({success:true,lecturerData})
+    } catch (error) {
+        console.log(error);
+        res.json({ success: false, message: error.message });
+    }
+}
+
+export {addLecturer,getLecturers}

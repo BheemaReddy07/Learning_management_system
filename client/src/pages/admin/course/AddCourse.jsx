@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -13,13 +13,53 @@ import {
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import { AppContext } from "@/context/AppContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 const AddCourse = () => {
     const navigate = useNavigate()
-    const isLoading = false;
+    const [isLoading,setIsLoading] = useState(false);
+    const {backendurl,token,lecturers,getLecturers} = useContext(AppContext)
 
+    const [courseTitle,setCourseTitle] = useState("")
+    const [branch,setBranch] = useState("")
+    const [lecturer,setLecturer] = useState("")
+    const [semester,setSemester] = useState("")
+
+    const getSelectedBranch = (value) =>{
+      setBranch(value)
+   }
+   const getSelectedLecturer = (value) =>{
+    setLecturer(JSON.parse(value))
+   }
+   const getSelectedSemester = (value) =>{
+    setSemester(value)
+   }
     const createCourseHandler = async () =>{
-        alert("working...")
+     try {
+      setIsLoading(true)
+      const {data} = await axios.post(backendurl+"/api/course/create",{courseTitle,branch,lecturer,semester},{headers:{token}})
+      if(data.success){
+        toast.success(data.message)
+        setCourseTitle("")
+    
+      }
+      else{
+        toast.error(data.message)
+      }
+      
+     } catch (error) {
+      toast.error(error)
+      console.log(error)
+     }
+     finally{
+      setIsLoading(false)
+     }
+          
     }
+
+
+   
   return (
     <div className="flex-1 mx-10 mt-24">
       <div className="mb-4">
@@ -35,33 +75,76 @@ const AddCourse = () => {
             type="text"
             name="courseTitle"
             placeholder="Your Course Name"
+            value={courseTitle}
+            onChange={(e)=>setCourseTitle(e.target.value)}
           />
         </div>
         <div>
-          <Label>Category</Label>
-          <Select>
+          <Label>Branch</Label>
+          <Select onValueChange={getSelectedBranch}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select a Category" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Category</SelectLabel>
-                <SelectItem value="Next JS">Next JS</SelectItem>
-                <SelectItem value="Data Science">Data Science</SelectItem>
-                <SelectItem value="Frontend Development">
-                  Frontend Development
+                <SelectItem value="CSE">CSE</SelectItem>
+                <SelectItem value="ECE">ECE</SelectItem>
+                <SelectItem value="EEE">
+                  EEE
                 </SelectItem>
-                <SelectItem value="Fullstack Development">
-                  Fullstack Development
+                <SelectItem value="MECH">
+                  MECH
                 </SelectItem>
-                <SelectItem value="MERN Stack Development">
-                  MERN Stack Development
+                <SelectItem value="CIVIL">
+                  CIVIL
                 </SelectItem>
-                <SelectItem value="Javascript">Javascript</SelectItem>
-                <SelectItem value="Python">Python</SelectItem>
-                <SelectItem value="Docker">Docker</SelectItem>
-                <SelectItem value="MongoDB">MongoDB</SelectItem>
-                <SelectItem value="HTML">HTML</SelectItem>
+                
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <Label>Lecturer</Label>
+          <Select onValueChange={getSelectedLecturer}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select Lecturer" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Lecturer</SelectLabel>
+                {
+                  lecturers.map((item,index)=>(
+                    <SelectItem key={index} value={JSON.stringify(item)}>{item.name}</SelectItem>
+                  ))
+                }
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+        <div>
+          <Label>Semester</Label>
+          <Select onValueChange={getSelectedSemester}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select semester" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Semester</SelectLabel>
+                <SelectItem value="E1 SEM1">E1 SEM1</SelectItem>
+                <SelectItem value="E1 SEM2">E1 SEM2</SelectItem>
+                <SelectItem value="E2 SEM1">
+                  E2 SEM1
+                </SelectItem>
+                <SelectItem value="E2 SEM2">
+                  E2 SEM2
+                </SelectItem>
+                <SelectItem value="E3 SEM1">
+                  E3 SEM1
+                </SelectItem>
+                <SelectItem value="E3 SEM2">E3 SEM2</SelectItem>
+                <SelectItem value="E4 SEM1">E4 SEM1</SelectItem>
+                <SelectItem value="E4 SEM2">E4 SEM2</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
