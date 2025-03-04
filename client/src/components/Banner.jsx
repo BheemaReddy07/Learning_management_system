@@ -22,7 +22,7 @@ const Banner = () => {
             {/* --right side (Image) -- */}
             <div className='hidden md:block md:w-1/2 lg:w-[370px] relative'>
                 <img className='w-full absolute bottom-0 right-0 max-w-medium' 
-                    src="appointment_img.png" alt="College LMS Banner" />
+                    src="banner1.png" alt="College LMS Banner" />
             </div>
         </div>
     )

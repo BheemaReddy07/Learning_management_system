@@ -11,7 +11,7 @@ const Header = () => {
           Learn from <br /> Expert Instructors
         </p>
         <div className="flex flex-col md:flex-row items-center gap-3 text-white text-small font-light">
-          <img className="w-28" src="header_img.png" alt="Students Group" />
+          <img className="w-28" src="headerImg.png" alt="Students Group" />
           <p>
             Access a wide range of courses, interact with top instructors,{" "}
             <br className="hidden sm:block" />
@@ -31,7 +31,7 @@ const Header = () => {
       <div className="md:w-1/2 relative">
         <img
           className="w-full md:absolute bottom-0 h-auto rounded-lg"
-          src="header_img.png"
+          src="headerImg.png"
           alt="LMS Banner"
         />
       </div>

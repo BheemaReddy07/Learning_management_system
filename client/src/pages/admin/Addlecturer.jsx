@@ -1,32 +1,47 @@
 import React, { useState, useContext } from "react";
 import { toast } from "react-toastify";
 import { AppContext } from "@/context/AppContext";
-import { Upload } from "lucide-react";
+import { Loader2, Upload } from "lucide-react";
+import axios from "axios";
 
 const AddLecturer = () => {
   const [lecturerImg, setLecturerImg] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [degree, setDegree] = useState("");
-  const { backendurl } = useContext(AppContext);
-
+  const [isLoading,setIsLoading] = useState(false)
+  const { backendurl ,token } = useContext(AppContext);
+ 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     try {
+      setIsLoading(true); 
       if (!lecturerImg) {
         return toast.error("Please upload an image");
       }
 
       const formData = new FormData();
-      formData.append("image", lecturerImg);
+      formData.append("lecturerImg", lecturerImg);
       formData.append("name", name);
       formData.append("email", email);
       formData.append("degree", degree);
-
-      toast.success("Lecturer added successfully!");
+      
+      const {data} = await axios.post(backendurl+"/api/lecturer/add-lecturer",formData,{headers:{token}})
+      if(data.success){
+        toast.success(data.message)
+        setDegree("")
+        setEmail("")
+        setName("")
+        setLecturerImg(null)
+      }
+      else{
+        toast.error(data.message)
+      }
     } catch (error) {
       toast.error("Failed to add lecturer");
       console.error(error);
+    }finally{
+      setIsLoading(false)
     }
   };
 
@@ -96,9 +111,16 @@ const AddLecturer = () => {
       <div className="flex justify-start mt-6">
         <button
           type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition"
+          className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition  text-base flex items-center justify-center gap-2 disabled:opacity-50"
+          disabled={isLoading}
         >
-          Add Lecturer
+        {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin " /> Please wait
+                    </>
+                  ) : (
+                    "Add Lecturer"
+                  )}
         </button>
       </div>
     </form>
