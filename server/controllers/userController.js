@@ -26,9 +26,20 @@ const sendOTPEmail = async (email, otp, name) => {
     from: process.env.MAIL_SENDER_EMAIL,
     to: email,
     subject: "Your OTP Code",
-    text: `Hi ${
-      name ? name : ""
-    }!! Greetings from Prescripto, here is your OTP code: ${otp}`,
+    html: `
+      <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #ddd; border-radius: 10px; max-width: 400px;">
+        <h2 style="color: #2d89ef;">Hello ${name ? name : ""},</h2>
+        <p>Thank you for using our service! Here is your OTP code:</p>
+        <div style="font-size: 22px; font-weight: bold; background: #f4f4f4; padding: 10px; border-radius: 5px; display: inline-block;">
+          ${otp}
+        </div>
+        <p style="color: red;">This OTP is valid for only 3 minutes.</p>
+        <p>If you did not request this, please ignore this email.</p>
+        <br/>
+        <p>Best regards,</p>
+        <p><strong>Ongolearn Team</strong></p>
+      </div>
+    `,
   };
 
   try {

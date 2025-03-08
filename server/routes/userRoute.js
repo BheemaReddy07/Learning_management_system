@@ -12,4 +12,5 @@ userRouter.post('/forgot/reset',resetPassword)
 userRouter.get('/get-profile',authUser,getUserProfile); 
 userRouter.post('/update-profile',upload.single('image'),authUser,updateUserProfile)
 
+
 export default userRouter

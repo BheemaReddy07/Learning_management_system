@@ -1,4 +1,5 @@
 import courseModel from "../models/courseModel.js";
+import lectureModel from "../models/lectureModel.js";
 import {deleteMediaFromCloudinary, uploadMedia} from "../utils/cloudinary.js"
 const createCourse = async (req, res) => {
   try {
@@ -64,8 +65,53 @@ const editCourse =async (req,res) =>{
         return res.json({success:true,course,message:"Course edited"})
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ success: false, message: "Failed to fetch courses" });
+        return res.status(500).json({ success: false, message: "Failed to edit courses" });
    
     }
 }
-export { createCourse  ,getCreatorCourses ,editCourse};
+
+const getCourseDetailsById = async (req,res) =>{
+  try {
+    const {courseId} = req.body
+    const courseDetails = await courseModel.findById(courseId)
+    if(!courseDetails){
+      return res.status(404).json({success:false,message:"Course not found"})
+    }
+    res.status(200).json({success:true,courseDetails})
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, message: "Failed to fetch courses by id" });
+  }
+}
+
+
+const createLecture = async (req,res) =>{
+  try {
+    const {lectureTitle,courseId} = req.body
+    
+    if(!courseId || !lectureTitle){
+      return res.status(404).json({success:false,message:"Missing details"})
+    }
+
+    const lecture  = new lectureModel({
+      lectureTitle
+    })
+    await lecture.save();
+
+    const course = await courseModel.findById(courseId)
+    if(!course){
+      return res.status(404).json({success:false,message:"Course Not Found"})
+    }
+    else{
+      course.lectures.push(lecture._id)
+      await course.save();
+    }
+    return res.status(201).json({success:true,lecture,message:"lecture created"})
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, message: "Failed to create lecture" });
+  }
+}
+
+
+export { createCourse  ,getCreatorCourses ,editCourse ,getCourseDetailsById ,createLecture};

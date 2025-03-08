@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Skeleton } from "./ui/skeleton";
 
 import Course from "../components/Course";
-const courses =[1,2,3,4,5,6,7]
+import { AppContext } from "@/context/AppContext";
+
 const Courses = () => {
 
+  const {adminCourses,setAdminCourses,getadminCourses} = useContext(AppContext)
+   
   const isLoading = false;
   return (
     <div className="">
@@ -17,8 +20,8 @@ const Courses = () => {
               <CourseSkeleton key={index} />
             ))
           ) : (
-          courses.map((courses,index)=>(
-            <Course key={index}/>
+          adminCourses.map((courses,index)=>(
+            <Course key={index} id={courses._id} branch={courses.branch} courseThumbnail={courses.courseThumbnail} courseTitle={courses.courseTitle} lecturerName={courses.lecturerData.name} lecturerPhoto={courses.lecturerData.photoUrl} semester={courses.semester}/>
           )) 
           )}
         </div>
