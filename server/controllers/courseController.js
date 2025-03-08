@@ -128,5 +128,12 @@ const getCourseLectures = async (req,res) =>{
   }
 }
 
-
+const editLecture = async (req,res) =>{
+  try {
+    const {videoInfo} = req.body
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, message: "Failed to edit lecture" });
+  }
+}
 export { createCourse  ,getCreatorCourses ,editCourse ,getCourseDetailsById ,createLecture ,getCourseLectures};

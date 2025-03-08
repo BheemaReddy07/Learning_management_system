@@ -6,6 +6,7 @@ import connectDB from './config/mongodb.js'
 import userRouter from './routes/userRoute.js'
 import courseRouter from './routes/courseRoute.js'
 import lecturerRoute from './routes/lecturerRoute.js'
+import mediaRouter from './routes/mediaRoute.js'
 
 //app config
 const app = express()
@@ -23,6 +24,7 @@ app.use(cors())
 
 
 //api end points
+app.use('/api/media',mediaRouter)
 app.use('/api/user',userRouter)
 app.use('/api/course',courseRouter)
 app.use('/api/lecturer',lecturerRoute)
