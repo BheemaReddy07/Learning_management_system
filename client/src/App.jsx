@@ -21,6 +21,7 @@ import AddCourse from "./pages/admin/course/AddCourse";
 import Addlecturer from "./pages/admin/Addlecturer";
 import EditCourse from "./pages/admin/course/EditCourse";
 import CreateLecture from "./pages/admin/lecture/CreateLecture";
+import EditLecture from "./pages/admin/lecture/EditLecture";
 const App = () => {
   const navigate = useNavigate();
   const { showLogin, setShowLogin, token } = useContext(AppContext);
@@ -56,7 +57,8 @@ const App = () => {
             <Route path="add-lecturer" element={<Addlecturer />} />
             <Route path="course/create"  element={<AddCourse />}/>
             <Route path="course/:courseId"  element={<EditCourse />}/>
-            <Route path="course/:courseId/create"  element={<CreateLecture />}/>
+            <Route path="course/:courseId/lecture"  element={<CreateLecture />}/>
+            <Route path="course/:courseId/lecture/:lectureId"  element={<EditLecture/>}/>
 
           </Route>
           

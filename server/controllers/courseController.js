@@ -114,4 +114,19 @@ const createLecture = async (req,res) =>{
 }
 
 
-export { createCourse  ,getCreatorCourses ,editCourse ,getCourseDetailsById ,createLecture};
+const getCourseLectures = async (req,res) =>{
+  try {
+    const {courseId} = req.body
+    const course = await courseModel.findById(courseId).populate('lectures')
+    if(!course){
+      return res.status(404).json({success:false,message:"Course Not Found"})
+    }
+    return res.status(200).json({success:true,lectures:course.lectures})
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, message: "Failed to fetch lecture" });
+  }
+}
+
+
+export { createCourse  ,getCreatorCourses ,editCourse ,getCourseDetailsById ,createLecture ,getCourseLectures};
