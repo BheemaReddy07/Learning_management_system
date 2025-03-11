@@ -27,7 +27,7 @@ import { AppContext } from "@/context/AppContext";
 const CourseTab = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
-  const { token, backendurl, lecturers, getadminCourses } =
+  const { token, backendurl, lecturers, getadminCourses,PublishedCourses, setPublishedCourses, } =
     useContext(AppContext);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -138,6 +138,13 @@ const CourseTab = () => {
       if (data.success) {
         toast.success(data.message);
         setCourseById((prev) => ({ ...prev, isPublished: !prev.isPublished }));
+        if (data.noPublishedCourses) {
+          
+          setPublishedCourses([]);  
+        } else {
+          setPublishedCourses(data.publishedCourses);
+        }
+        
       } else {
         toast.error(data.message);
       }

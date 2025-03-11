@@ -6,7 +6,7 @@ import { AppContext } from "@/context/AppContext";
 
 const Courses = () => {
 
-  const {adminCourses,setAdminCourses,getadminCourses} = useContext(AppContext)
+  const {adminCourses,setAdminCourses,getadminCourses,PublishedCourses,setPublishedCourses,fetchPublishedCourses} = useContext(AppContext)
    
   const isLoading = false;
   return (
@@ -20,7 +20,7 @@ const Courses = () => {
               <CourseSkeleton key={index} />
             ))
           ) : (
-          adminCourses.map((courses,index)=>(
+          PublishedCourses?.map((courses,index)=>(
             <Course key={index} id={courses._id} branch={courses.branch} courseThumbnail={courses.courseThumbnail} courseTitle={courses.courseTitle} lecturerName={courses.lecturerData.name} lecturerPhoto={courses.lecturerData.photoUrl} semester={courses.semester}/>
           )) 
           )}

@@ -260,14 +260,38 @@ const togglePublishStatus = async (req,res) =>{
     course.isPublished = !course.isPublished;
     await course.save();
 
-    res.status(200).json({success:true, message: `Course ${course.isPublished ? "published" : "unpublished"} successfully`,
-      isPublished: course.isPublished})
 
+   const publishedCourses = await courseModel.find({isPublished:true})
+   
+   res.status(200).json({
+    success: true,
+    message: `Course ${course.isPublished ? "published" : "unpublished"} successfully`,
+    isPublished: course.isPublished,
+    publishedCourses, 
+    noPublishedCourses: publishedCourses.length === 0,  
+  });
+  
   } catch (error) {
     console.error(error);
     return res.status(500).json({ success: false, message: "Failed to toggle the publish status" });
   }
 }
+
+
+const getPublishedCourses = async (req, res) => {
+  try {
+    const courses = await courseModel.find({ isPublished: true });
+
+     
+
+    res.status(200).json({ success: true, courses, message: courses.length > 0 ? "Courses fetched successfully" : "No published courses available",
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ success: false, message: "Failed to fetch published courses" });
+  }
+};
+
 
 export {
   createCourse,
@@ -279,5 +303,6 @@ export {
   editLecture,
   removeLecture,
   getLectureById,
-  togglePublishStatus
+  togglePublishStatus,
+  getPublishedCourses
 };
