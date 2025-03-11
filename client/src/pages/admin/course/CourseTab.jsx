@@ -33,6 +33,7 @@ const CourseTab = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [previewThumbnail, setPreviewThumbnail] = useState("");
   const [courseById, setCourseById] = useState(null);
+  const [lectureCount,setLectureCount] = useState(0);
   const [input, setInput] = useState({
     courseTitle: "",
     subTitle: "",
@@ -50,8 +51,10 @@ const CourseTab = () => {
         { headers: { token } }
       );
       if (data.success) {
+        const lectureLength = data.courseDetails?.lectures?.length || 0;
         setCourseById(data.courseDetails);
-
+        setLectureCount(lectureLength)
+        
         setInput((prev) => ({
           ...prev,
           courseTitle: data.courseDetails.courseTitle || "",
@@ -71,7 +74,7 @@ const CourseTab = () => {
 
   useEffect(() => {
     if (courseId) getCourseDetailsByCourseId();
-  }, [courseId]);
+  }, [courseId,token,backendurl]);
 
   const changeEventHandler = (e) => {
     const { name, value } = e.target;
@@ -156,10 +159,11 @@ const CourseTab = () => {
           </CardDescription>
         </div>
         <div className="space-x-2">
+           {console.log(lectureCount)}
           <Button
             onClick={togglePubishStatus}
             variant="outline"
-            disabled={isLoading}
+            disabled={isLoading || lectureCount===0}
             className={`text-white ${
               courseById?.isPublished ? "bg-yellow-500 hover:bg-yellow-600" : "bg-green-600 hover:bg-green-300"
             }`}
