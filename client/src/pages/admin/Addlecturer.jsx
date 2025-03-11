@@ -10,7 +10,7 @@ const AddLecturer = () => {
   const [email, setEmail] = useState("");
   const [degree, setDegree] = useState("");
   const [isLoading,setIsLoading] = useState(false)
-  const { backendurl ,token } = useContext(AppContext);
+  const { backendurl ,token,getLecturers } = useContext(AppContext);
  
   const onSubmitHandler = async (event) => {
     event.preventDefault();
@@ -33,6 +33,8 @@ const AddLecturer = () => {
         setEmail("")
         setName("")
         setLecturerImg(null)
+
+        getLecturers();
       }
       else{
         toast.error(data.message)

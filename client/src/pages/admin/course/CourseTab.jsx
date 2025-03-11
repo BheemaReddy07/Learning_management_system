@@ -4,8 +4,22 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { AppContext } from "@/context/AppContext";
@@ -13,7 +27,8 @@ import { AppContext } from "@/context/AppContext";
 const CourseTab = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
-  const { token, backendurl, lecturers, getadminCourses } = useContext(AppContext);
+  const { token, backendurl, lecturers, getadminCourses } =
+    useContext(AppContext);
 
   const [isLoading, setIsLoading] = useState(false);
   const [previewThumbnail, setPreviewThumbnail] = useState("");
@@ -36,7 +51,7 @@ const CourseTab = () => {
       );
       if (data.success) {
         setCourseById(data.courseDetails);
-        
+
         setInput((prev) => ({
           ...prev,
           courseTitle: data.courseDetails.courseTitle || "",
@@ -53,21 +68,20 @@ const CourseTab = () => {
       console.log(error);
     }
   };
-  
 
   useEffect(() => {
     if (courseId) getCourseDetailsByCourseId();
-  }, [courseId]);   
-  
-  
+  }, [courseId]);
 
   const changeEventHandler = (e) => {
     const { name, value } = e.target;
     setInput((prev) => ({ ...prev, [name]: value }));
   };
 
-  const selectBranch = (value) => setInput((prev) => ({ ...prev, branch: value }));
-  const selectSemester = (value) => setInput((prev) => ({ ...prev, semester: value }));
+  const selectBranch = (value) =>
+    setInput((prev) => ({ ...prev, branch: value }));
+  const selectSemester = (value) =>
+    setInput((prev) => ({ ...prev, semester: value }));
 
   const selectThumbnail = (e) => {
     const file = e.target.files?.[0];
@@ -110,12 +124,58 @@ const CourseTab = () => {
     }
   };
 
+  const togglePubishStatus = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await axios.post(
+        backendurl + "/api/course/toggle-publish",
+        { courseId },
+        { headers: { token } }
+      );
+      if (data.success) {
+        toast.success(data.message);
+        setCourseById((prev) => ({ ...prev, isPublished: !prev.isPublished }));
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Card>
       <CardHeader className="flex flex-row justify-between">
         <div>
           <CardTitle>Basic Course Information</CardTitle>
-          <CardDescription>Make changes to your course here. Click save when you are done.</CardDescription>
+          <CardDescription>
+            Make changes to your course here. Click save when you are done.
+          </CardDescription>
+        </div>
+        <div className="space-x-2">
+          <Button
+            onClick={togglePubishStatus}
+            variant="outline"
+            disabled={isLoading}
+            className={`text-white ${
+              courseById?.isPublished ? "bg-yellow-500 hover:bg-yellow-600" : "bg-green-600 hover:bg-green-300"
+            }`}
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin mr-2" /> Please wait
+              </>
+            ) : courseById?.isPublished ? (
+              "Unpublish"
+            ) : (
+              "Publish"
+            )}
+          </Button>
+
+          <Button>Remove Course</Button>
         </div>
       </CardHeader>
       <CardContent>
@@ -161,7 +221,7 @@ const CourseTab = () => {
             </div>
             <div>
               <Label>Semester</Label>
-              <Select onValueChange={selectSemester} value={input.semester }>
+              <Select onValueChange={selectSemester} value={input.semester}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Select Semester" />
                 </SelectTrigger>
@@ -183,13 +243,32 @@ const CourseTab = () => {
           </div>
           <div>
             <Label>Course Thumbnail</Label>
-            <Input type="file" accept="image/*" className="w-fit" onChange={selectThumbnail} />
-            {previewThumbnail && <img src={previewThumbnail} className="h-64 my-2" alt="Course Thumbnail" />}
+            <Input
+              type="file"
+              accept="image/*"
+              className="w-fit"
+              onChange={selectThumbnail}
+            />
+            {previewThumbnail && (
+              <img
+                src={previewThumbnail}
+                className="h-64 my-2"
+                alt="Course Thumbnail"
+              />
+            )}
           </div>
           <div className="flex gap-4">
-            <Button onClick={() => navigate("/admin/course")} variant="outline">Cancel</Button>
+            <Button onClick={() => navigate("/admin/course")} variant="outline">
+              Cancel
+            </Button>
             <Button onClick={updateCourseHandler} disabled={isLoading}>
-              {isLoading ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait</> : "Save"}
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please Wait
+                </>
+              ) : (
+                "Save"
+              )}
             </Button>
           </div>
         </div>

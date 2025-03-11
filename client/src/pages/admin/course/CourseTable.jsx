@@ -7,7 +7,7 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
+ 
   TableHead,
   TableHeader,
   TableRow,
@@ -27,7 +27,10 @@ const CourseTable = () => {
 
  
 
- 
+  useEffect(() => {
+    getadminCourses();  
+  }, [adminCourses]);
+  
 
   return (
     <div className="mt-20 mx-[-150px]">
