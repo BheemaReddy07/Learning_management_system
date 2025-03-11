@@ -31,7 +31,7 @@ const LectureTab = () => {
   const [mediaProgress, setMediaProgress] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [btnDisable, setBtnDisable] = useState(true);
-
+  const [isVideoUploadedAlready,setIsVideoUploadedAlready] = useState(false);
 
   
 
@@ -98,6 +98,7 @@ const LectureTab = () => {
       const {data} = await axios.get(backendurl+`/api/course/get-lectureById/${lectureId}`,{headers:{token} })
         if(data.success){
          setLectureTitle(data.lecture.lectureTitle)
+         setIsVideoUploadedAlready(data.lecture?.publicId)
          
         }
         else{
@@ -163,13 +164,16 @@ const LectureTab = () => {
             {" "}
             Video <span className="text-red-500">*</span>
           </Label>
-          <Input
+          <div className="flex items-center gap-5"><Input
             type="file"
             accept="video/*"
             placeholder="Ex.Introduction to JS"
             onChange={fileChangeHandler}
             className="w-fit"
           />
+         {
+          isVideoUploadedAlready &&  <span className="text-green-500 text-lg font-bold">Already Uploaded</span>
+         }</div>
         </div>
         {mediaProgress && (
           <div className="my-4">
