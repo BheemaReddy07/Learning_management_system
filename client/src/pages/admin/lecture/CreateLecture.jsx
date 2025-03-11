@@ -14,7 +14,7 @@ const CreateLecture = () => {
   const [courseLectures, setCourseLectures] = useState([]);
   const { backendurl, token } = useContext(AppContext);
   const navigate = useNavigate();
-  const isLoading = false;
+  const [isLoading,setIsLoading] = useState(false)
   const params = useParams();
   const courseId = params.courseId;
   const getCourseLectures = async () => {
@@ -38,6 +38,7 @@ const CreateLecture = () => {
 
   const onSubmitHandler = async () => {
     try {
+      setIsLoading(true);
       const { data } = await axios.post(
         backendurl + "/api/course/create-lecture",
         { lectureTitle, courseId },
@@ -54,6 +55,9 @@ const CreateLecture = () => {
     } catch (error) {
       toast.error(error);
       console.log(error.message);
+    }
+    finally{
+      setIsLoading(false)
     }
   };
 

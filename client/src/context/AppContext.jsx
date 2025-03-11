@@ -39,7 +39,7 @@ const AppContextProvider = (props) => {
       const {data} = await axios.get(backendurl+"/api/lecturer/get-lecturer",{headers:{token}})
       if(data.success){
         setLecturers(data.lecturerData);
-        console.log(data.lecturerData)
+       
       }
       else{
         toast.error(data.message)
@@ -59,7 +59,7 @@ const AppContextProvider = (props) => {
         );
         if (data.success) {
           setAdminCourses(data.courses);
-          console.log(data.courses);
+           
         }
       } catch (error) {
         toast.error(error.message);
