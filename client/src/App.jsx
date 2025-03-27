@@ -22,6 +22,7 @@ import Addlecturer from "./pages/admin/Addlecturer";
 import EditCourse from "./pages/admin/course/EditCourse";
 import CreateLecture from "./pages/admin/lecture/CreateLecture";
 import EditLecture from "./pages/admin/lecture/EditLecture";
+import CourseDetail from "./pages/students/CourseDetail";
 const App = () => {
   const navigate = useNavigate();
   const { showLogin, setShowLogin, token } = useContext(AppContext);
@@ -40,7 +41,7 @@ const App = () => {
         {showLogin && <Login />}
         <Routes>
           <Route path="/" element={<Home />} />
-
+          <Route path="/course-detail/:courseId" element={<CourseDetail />} />
           {isAuthenticated() ? (
             <>
               <Route path="/my-learnings" element={<MyLearning />} />

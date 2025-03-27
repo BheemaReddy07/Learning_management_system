@@ -3,10 +3,12 @@ import { Card, CardContent } from "./ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 import { Badge } from "./ui/badge";
 import { AppContext } from "@/context/AppContext";
+import { Link } from "react-router-dom";
 
 const Course = ({id,branch,courseTitle,courseThumbnail,lecturerName,lecturerPhoto,semester}) => {
    const {adminCourses,setAdminCourses,getadminCourses} = useContext(AppContext)
   return (
+    <Link to={`/course-detail/${id }`}>
     <Card className="overflow-hidden rounded-lg dark:bg-gray-800 bg-white shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
       <div className="relative">
         <img
@@ -35,6 +37,8 @@ const Course = ({id,branch,courseTitle,courseThumbnail,lecturerName,lecturerPhot
       </CardContent>
       </div>
     </Card>
+    </Link>
+    
   );
 };
 
