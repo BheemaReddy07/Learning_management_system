@@ -25,5 +25,5 @@ const EnrollCourseSchema = new mongoose.Schema({
 
 },{timestamps:true});
 
-const EnrollCourse = mongoose.models.EnrollCourse || mongoose.model('EnrollCourse',EnrollCourseSchema);
-export default EnrollCourse;
+const EnrollCourseModel = mongoose.models.EnrollCourse || mongoose.model('EnrollCourse',EnrollCourseSchema);
+export default EnrollCourseModel;

@@ -81,6 +81,13 @@ const AppContextProvider = (props) => {
     }
   };
 
+  const enrolledCourses = async () =>{
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
   const value = {
     userData,
     setUserData,

@@ -7,7 +7,7 @@ import userRouter from './routes/userRoute.js'
 import courseRouter from './routes/courseRoute.js'
 import lecturerRoute from './routes/lecturerRoute.js'
 import mediaRouter from './routes/mediaRoute.js'
-
+import enrollCourseRoute from './routes/enrollCourseRoute.js'
 //app config
 const app = express()
 const port  = process.env.PORT || 4000
@@ -28,6 +28,7 @@ app.use('/api/media',mediaRouter)
 app.use('/api/user',userRouter)
 app.use('/api/course',courseRouter)
 app.use('/api/lecturer',lecturerRoute)
+app.use('/api/enrollment',enrollCourseRoute)
 app.get('/',(req,res)=>{
     res.send('API IS WORKING.....')
 })

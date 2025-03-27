@@ -1,12 +1,35 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
- 
-import { BadgeInfo, PlayCircle } from 'lucide-react'
-import React from 'react'
-
+import { toast } from 'react-toastify'
+import { BadgeInfo, Loader2, PlayCircle } from 'lucide-react'
+import React, { useContext, useState } from 'react'
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
+import { AppContext } from '@/context/AppContext'
 const CourseDetail = () => {
+    const {token,backendurl} = useContext(AppContext)
+    const [isLoading,setIsLoading] = useState(false)
+    const params = useParams()
+    const courseId = params.courseId
     const enrolledCourse = false
+    const enrollCourseHandler = async () =>{
+        try {
+            setIsLoading(true);
+            const {data} = await axios.post(backendurl+'/api/enrollment/enroll-course',{courseId},{headers:{token}})
+            if(data.success){
+                toast.success(data.message)
+            }else{
+                toast.error(data.message)
+                console.log(data.message)
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error(error.message);
+        }finally{
+            setIsLoading(false)
+        }
+    }
   return (
     <div className='mt-20 space-y-5'>
         <div className='bg-[#2D2F31] text-white'>
@@ -55,10 +78,17 @@ const CourseDetail = () => {
                          <Separator className='my-2' />
                     </CardContent>
                     <CardFooter className="flex justify-center gap-4">
-                        <Button className="w-full">
-                            {
-                                enrolledCourse ? 'Continue Learning' : 'Enroll Now'
-                            }
+                        <Button className="w-full" disabled={isLoading} onClick={enrollCourseHandler}>
+                           {
+                               isLoading ?
+                               (
+                                <>
+                                 <Loader2 className="mr-2 h-4 w-4 animate-spin " /> Please wait
+                                </>
+                               ):(
+                                  'Enroll Now'
+                            )
+                           }
                         </Button>
                     </CardFooter>
                 </Card>
@@ -69,3 +99,4 @@ const CourseDetail = () => {
 }
 
 export default CourseDetail
+
