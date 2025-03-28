@@ -5,10 +5,11 @@ import { toast } from 'react-toastify'
 import { BadgeInfo, Loader2, PlayCircle } from 'lucide-react'
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { AppContext } from '@/context/AppContext'
 import ReactPlayer from 'react-player'
 const CourseDetail = () => {
+    const navigate = useNavigate();
     const [courseDetails,setCourseDetails] = useState();
     const [enrollStatus,setEnrollStatus] = useState(false);
     const {token,backendurl} = useContext(AppContext)
@@ -54,7 +55,9 @@ const CourseDetail = () => {
     }
 
     const handleContinueCourse = async () =>{
-
+            if(enrollStatus){
+                navigate(`/course-progress/${courseId}`);
+            }
     }
     useEffect(() => {
         if (token) {

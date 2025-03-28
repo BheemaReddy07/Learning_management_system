@@ -23,6 +23,7 @@ import EditCourse from "./pages/admin/course/EditCourse";
 import CreateLecture from "./pages/admin/lecture/CreateLecture";
 import EditLecture from "./pages/admin/lecture/EditLecture";
 import CourseDetail from "./pages/students/CourseDetail";
+import CourseProgress from "./pages/students/CourseProgress";
 const App = () => {
   const navigate = useNavigate();
   const { showLogin, setShowLogin, token } = useContext(AppContext);
@@ -46,6 +47,7 @@ const App = () => {
             <>
               <Route path="/my-learnings" element={<MyLearning />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/course-progress/:courseId" element={<CourseProgress />} />
               <Route path="*" element={<Navigate to="/" />} />
             </>
           ) : (
