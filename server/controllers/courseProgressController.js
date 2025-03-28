@@ -1,5 +1,5 @@
-import courseModel from "../models/courseModel";
-import courseProgressModel from "../models/courseProgressModel";
+import courseModel from "../models/courseModel.js";
+import courseProgressModel from "../models/courseProgressModel.js";
 
 
 const getCourseProgress = async (req ,res) =>{
@@ -12,11 +12,11 @@ const getCourseProgress = async (req ,res) =>{
             return res.status(404).json({success:false,message:"Course details not found"})
         }
         return res.status(200).json({
-            data:{
+            success:true,
                 courseDetails,
                 progress: courseProgress ? courseProgress.lectureProgress : [],
                 completed: courseProgress ? courseProgress.completed : false 
-            }
+            
         })
     } catch (error) {
         console.log(error)

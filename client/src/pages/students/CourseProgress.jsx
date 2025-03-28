@@ -1,15 +1,48 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { AppContext } from "@/context/AppContext";
 import { Badge, CheckCircle, CheckCircle2, PlayCircle } from "lucide-react";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const CourseProgress = () => {
   const isCompleted = false;
+  const navigate = useNavigate();
+  const params = useParams();
+  const courseId = params.courseId;
+  const {token,backendurl} = useContext(AppContext)
+  const [courseProgressDetails,setCourseProgressDetails] = useState()
+
+  
+  const fetchCourseProgress = async () =>{
+    try {
+        const {data} = await axios.post(backendurl+"/api/progress/get-progress",{courseId},{headers:{token}})
+        console.log(data)
+        if(data.success){
+            setCourseProgressDetails(data.courseDetails)
+             
+        }
+        else{
+            toast.error(data.message)
+        }
+    } catch (error) {
+        console.log(error)
+        toast.error(error.message)
+    }
+  }
+
+  useEffect(()=>{
+
+    fetchCourseProgress();
+     
+  },[token,courseId])
   return (
     <div className="max-w-7xl mx-auto mt-20 p-4">
       <div className="flex justify-between mb-4">
-        <h1 className="text-2xl font-bold">Course Title</h1>
+        <h1 className="text-2xl font-bold">{courseProgressDetails.courseTitle} </h1>
         <Button>Mark as Completed</Button>
       </div>
       <div className="flex flex-col md:flex-row gap-6">
