@@ -15,8 +15,11 @@ const CourseProgress = () => {
   const courseId = params.courseId;
   const {token,backendurl} = useContext(AppContext)
   const [courseProgressDetails,setCourseProgressDetails] = useState()
+  const [currentLecture,setCurrentLecture] = useState(null)
 
-  
+  //initialize the lecture
+  const initialLecture = currentLecture || (courseProgressDetails?.lectures && courseProgressDetails?.lectures[0])
+
   const fetchCourseProgress = async () =>{
     try {
         const {data} = await axios.post(backendurl+"/api/progress/get-progress",{courseId},{headers:{token}})
@@ -42,24 +45,30 @@ const CourseProgress = () => {
   return (
     <div className="max-w-7xl mx-auto mt-20 p-4">
       <div className="flex justify-between mb-4">
-        <h1 className="text-2xl font-bold">{courseProgressDetails.courseTitle} </h1>
+        <h1 className="text-2xl font-bold">{courseProgressDetails?.courseTitle} </h1>
         <Button>Mark as Completed</Button>
       </div>
       <div className="flex flex-col md:flex-row gap-6">
         <div className="flex-1 md:w-3/5 h-fit rounded-lg shadow-lg p-4">
-          <div>{/* <video /> */}</div>
+          <div>
+            <video src={currentLecture?.videoUrl || initialLecture?.videoUrl} controls className="w-full h-auto md:rounded-lg" />
+          </div>
 
           <div className="mt-2">
-            <h3 className="font-medium text-lg">Lecture-1:Introductin</h3>
+            <h3 className="font-medium text-lg">
+                {`Lecture ${courseProgressDetails?.lectures?.findIndex(
+                    (lec)=>lec._id ===(currentLecture?._id || initialLecture._id)
+                )+1 }: ${currentLecture?.lectureTitle || initialLecture?.lectureTitle}`}
+                </h3>
           </div>
         </div>
         {/* lecture sidebar */}
         <div className="flex flex-col w-full md:w-2/5 border-t md:border-t-0 md:border-l border-gray-200 md:pl-4 pt-4 md:pt-0">
           <h2 className="font-semibold text-xl  mb-4">Course lecture</h2>
           <div className="flex-1 overflow-y-auto">
-            {[1, 2, 3, 4].map((lectures, index) => (
+            {courseProgressDetails?.lectures?.map((lecture) => (
               <Card
-                key={index}
+                key={lecture._id}
                 className="mb-3 hover:cursor-pointer transition transform"
               >
                 <CardContent className="flex items-center p-4 justify-between">
@@ -75,7 +84,7 @@ const CourseProgress = () => {
                     )}
                     <div>
                       <CardTitle className="text-lg font-medium">
-                        Introduction
+                        {lecture.lectureTitle}
                       </CardTitle>
                     </div>
                   </div>
