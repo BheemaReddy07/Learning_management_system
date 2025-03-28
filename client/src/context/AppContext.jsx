@@ -68,7 +68,7 @@ const AppContextProvider = (props) => {
       const { data } = await axios.get(
         backendurl + "/api/course/published-courses"
       );
-      console.log("API Response:", data); // Debugging
+      
       if(data.success){
         setPublishedCourses(data.courses)
       }
@@ -125,7 +125,7 @@ const AppContextProvider = (props) => {
   }, []);
   useEffect(()=>{
     fetchPublishedCourses();
-    console.log(PublishedCourses)
+    
   },[])
   return (
     <AppContext.Provider value={value}>{props.children}</AppContext.Provider>

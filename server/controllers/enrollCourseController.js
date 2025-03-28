@@ -50,10 +50,40 @@ const enrollCourse = async (req, res) => {
   }
 };
 
-const getEnrolledCourses = async (req,res) =>{
+const getCourseDetailsWithEnrollStatus = async (req,res) =>{
+  try {
+    const {courseId,userId} = req.body;
+    const course = await courseModel.findById(courseId).populate({path:"lectures"});
+    const enrolled = await EnrollCourseModel.findOne({userId,courseId})
+    console.log(enrolled)
+    if (!course) {
+      return res.status(404).json({ message: "course not found!" });
+    }
+
+    return res.status(200).json({
+      success:true,
+      course,
+      enrolled: !!enrolled, // true if enrolled, false otherwise
+    });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Failed to fetch the  enrolled courses" });
+ 
+  }
+}
+
+
+const getAllEnrolledCourses = async (req,res) =>{
     try {
         const {userId} = req.body
         const enrolledCourses = await EnrollCourseModel.find({userId}).populate('courseId')
+        if (!enrolledCourses) {
+          return res.status(404).json({
+            enrolledCourse: [],
+          });
+        }
         return res.status(200).json({success:true,enrolledCourses})
         
     } catch (error) {
@@ -65,4 +95,4 @@ const getEnrolledCourses = async (req,res) =>{
     }
 }
 
-export { enrollCourse,getEnrolledCourses}
+export { enrollCourse,getCourseDetailsWithEnrollStatus,getAllEnrolledCourses}
