@@ -5,6 +5,7 @@ import {
   deleteVideoFromCloudinary,
   uploadMedia,
 } from "../utils/cloudinary.js";
+
 const createCourse = async (req, res) => {
   try {
     const { courseTitle, branch, semester, lecturer } = req.body;
@@ -128,6 +129,7 @@ const createLecture = async (req, res) => {
       course.lectures.push(lecture._id);
       await course.save();
     }
+    
     return res
       .status(201)
       .json({ success: true, lecture, message: "lecture created" });

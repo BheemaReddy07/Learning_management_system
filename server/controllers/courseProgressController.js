@@ -66,7 +66,7 @@ const updateLectureProgress = async (req,res) =>{
        await courseProgress.save();
 
        return res.status(200).json({
-        success:true,message:"lecture Progress updated successfully"
+        success:true,message:"lecture completed "
        })
     } catch (error) {
         console.log(error)

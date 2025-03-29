@@ -9,6 +9,8 @@ import lecturerRoute from './routes/lecturerRoute.js'
 import mediaRouter from './routes/mediaRoute.js'
 import enrollCourseRoute from './routes/enrollCourseRoute.js'
 import courseProgressRouter from './routes/courseProgressRoute.js'
+
+
 //app config
 const app = express()
 const port  = process.env.PORT || 4000
@@ -16,12 +18,14 @@ const port  = process.env.PORT || 4000
 connectDB()
 
 
+
 //middleware
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors())
 
-
+// Create HTTP server
+ 
 
 
 //api end points
@@ -35,6 +39,8 @@ app.get('/',(req,res)=>{
     res.send('API IS WORKING.....')
 })
 
-
+// WebSocket Connection Handling
+ 
 
 app.listen(port ,()=>console.log('server started',port))
+
