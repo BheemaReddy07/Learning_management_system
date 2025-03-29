@@ -10,7 +10,8 @@ const Sidebar = () => {
       {/* Sidebar */}
       <aside className="hidden lg:flex flex-col w-50 bg-gray-100 dark:bg-gray-900 border-r border-gray-300 dark:border-gray-700 fixed left-0 top-0 h-full p-5">
         <div className="mt-20 space-y-4">
-          <SidebarLink to="/admin/dashboard" icon={<ChartBar size={22} />} text="Dashboard" active={location.pathname === "/admin/dashboard"} />
+          {/* <SidebarLink to="/admin/dashboard" icon={<ChartBar size={22} />} text="Dashboard" active={location.pathname === "/admin/dashboard"} />
+          */}
           <SidebarLink to="/admin/course" icon={<Library size={22} />} text="Course" active={location.pathname === "/admin/course"} />
           <SidebarLink to="/admin/add-lecturer" icon={<Library size={22} />} text="Add lecturer" active={location.pathname === "/admin/add-lecturer"} />
         </div>

@@ -74,10 +74,10 @@ const Navbar = () => {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup className="cursor-pointer">
-                  <DropdownMenuItem>
+                  <DropdownMenuItem asChild>
                     <Link to="/my-learnings">My Learning</Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem asChild>
                     <Link to="/profile">Profile</Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem className="cursor-pointer" onClick={logout}>
@@ -87,7 +87,7 @@ const Navbar = () => {
                 {userData?.role === "instructor" && (
                   <>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="cursor-pointer">
+                    <DropdownMenuItem asChild className="cursor-pointer">
                       <Link to="/admin">Dashboard</Link>
                     </DropdownMenuItem>
                   </>
@@ -105,8 +105,16 @@ const Navbar = () => {
       </div>
       {/* Mobile Device */}
       <div className="flex md:hidden items-center justify-between px-4 h-full">
-        <h1 className="font-extrabold text-2xl">OngoLearn</h1>
-        <MobileNavbar />
+        <h1 className="font-extrabold text-2xl" onClick={() => navigate("/")}>
+          OngoLearn
+        </h1>
+        {token ? (
+          <MobileNavbar />
+        ) : (
+          <Button onClick={() => setShowLogin(true)} variant="outline">
+            Login
+          </Button>
+        )}
       </div>
     </div>
   );
@@ -115,6 +123,14 @@ const Navbar = () => {
 export default Navbar;
 
 const MobileNavbar = () => {
+  const { token, setToken, setShowLogin, showLogin, userData } =
+    useContext(AppContext);
+  const navigate = useNavigate();
+  const logout = () => {
+    setToken(false);
+    localStorage.removeItem("token");
+    navigate("/");
+  };
   const role = "instructor";
   return (
     <Sheet>
@@ -129,19 +145,29 @@ const MobileNavbar = () => {
       </SheetTrigger>
       <SheetContent className="flex flex-col bg-white">
         <SheetHeader className="flex flex-row items-center justify-between mt-2">
-          <SheetTitle>OngoLearn</SheetTitle>
+          <SheetTitle>
+            <Link to={"/"}>OngoLearn</Link>
+          </SheetTitle>
           <DarkMode />
         </SheetHeader>
         <Separator className="mr-2" />
         <nav className="flex flex-col items-center space-y-4">
-          <span>My Learnings</span>
-          <span>Edit Profile</span>
-          <span>Log out</span>
+          <SheetClose asChild>
+            <Link to="/my-learnings">My Learning</Link>
+          </SheetClose>
+          <SheetClose asChild>
+            <Link to="/profile">Profile</Link>
+          </SheetClose>
+          <SheetClose asChild>
+            <button onClick={logout}>Logout</button>
+          </SheetClose>
         </nav>
-        {role === "instructor" && (
+        {userData?.role === "instructor" && (
           <SheetFooter>
             <SheetClose asChild>
-              <Button type="submit">Dashboard</Button>
+              <Button>
+                <Link to="/admin">Dashboard</Link>
+              </Button>
             </SheetClose>
           </SheetFooter>
         )}

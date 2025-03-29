@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
     phone:{type:String,default:'+910000000000'},
     branch:{type:String,default:"Branch"},
     role:{type:String, enum:["instructor", "student"], default:'student' },
-    enrolledCourses:[ { type:mongoose.Schema.Types.ObjectId, ref:'Course' } ],
+    enrolledCourses:[ { type:mongoose.Schema.Types.ObjectId, ref:'course' } ],
     photoUrl:{type:String,default:"" },
     otp: { type: String },
     otpExpiration: { type: Date },

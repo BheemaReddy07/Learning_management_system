@@ -33,12 +33,12 @@ const CourseTable = () => {
   
 
   return (
-    <div className="mt-20 mx-[-150px]">
+    <div className="mt-20 mx-[-150px] dark:bg-black">
       <Button  className="mb-4 bg-blue-600 text-white hover:bg-blue-700" onClick={() => navigate(`create`)}>Create a new Course</Button>
-      <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
-      <Table className="w-full border border-gray-200 rounded-lg">
-        <TableCaption className="text-gray-500">A list of your recent courses.</TableCaption>
-        <TableHeader  className="bg-gray-100 border-b border-gray-300">
+      <div className="overflow-x-auto bg-white shadow-lg rounded-lg dark:bg-black">
+      <Table className="w-full border border-gray-200 dark:bg-black rounded-lg ">
+        <TableCaption className="text-gray-500 dark:bg-black">A list of your recent courses.</TableCaption>
+        <TableHeader  className="bg-gray-100 border-b border-gray-300 dark:bg-black">
           <TableRow className="text-gray-700 uppercase">
             <TableHead className="py-3 px-4 text-left" >Course Title</TableHead>
             <TableHead className="py-3 px-4 text-left" >Branch</TableHead>

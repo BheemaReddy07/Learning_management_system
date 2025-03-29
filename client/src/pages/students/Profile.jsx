@@ -30,7 +30,7 @@ const Profile = () => {
   const { userData, setUserData, backendurl, token, loadUserProfileData } =
     useContext(AppContext);
   const [isLoading, setIsLoading] = useState(false);
-  const enrolledcourses = [1, 2];
+  
 
   const [image, setImage] = useState(false);
   const [open, setOpen] = useState(false);
@@ -72,9 +72,13 @@ const Profile = () => {
   useEffect(() => {
     if (token) {
       loadUserProfileData();
+      
     }
   }, [token]);
-
+useEffect(()=>{
+  console.log(userData)
+},[])
+   
   return (
     <div className="max-w-4xl mx-auto px-4 my-24">
       <h1 className="font-bold text-2xl text-center md:text-left">PROFILE</h1>
@@ -231,8 +235,17 @@ const Profile = () => {
           {(userData?.enrolledCourses?.length ?? 0) === 0 ? (
             <h1>You haven't enrolled yet</h1>
           ) : (
-            userData.enrolledCourses.map((course) => (
-              <Course course={course} key={course._id} />
+            userData?.enrolledCourses?.map((course) => (
+              <Course 
+                key={course._id}
+                id={course._id} 
+                branch={course.branch}
+                courseTitle={course.courseTitle}
+                courseThumbnail={course.courseThumbnail}
+                lecturerName={course.lecturerData.name}
+                lecturerPhoto={course.lecturerData.photoUrl} 
+                semester={course.semester}
+                />
             ))
           )}
         </div>

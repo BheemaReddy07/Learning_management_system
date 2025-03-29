@@ -256,7 +256,7 @@ const getUserProfile = async (req, res) => {
 
     const userData = await userModel
       .findById(userId)
-      .select(["-password", "-otp", "-otpExpiration", "-verified"]);
+      .select(["-password", "-otp", "-otpExpiration", "-verified"]).populate("enrolledCourses") ;
     res.json({ success: true, userData });
   } catch (error) {
     console.log(error);

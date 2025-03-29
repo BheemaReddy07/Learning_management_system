@@ -48,8 +48,8 @@ const AddLecturer = () => {
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className="w-full max-w-[1300px]   mt-20 bg-white shadow-md rounded-lg p-8 mx-[-150px]">
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6">Add Lecturer</h2>
+    <form onSubmit={onSubmitHandler} className="w-full max-w-[1300px]   mt-20 bg-white shadow-md rounded-lg p-8 mx-[-150px] dark:bg-black  ">
+      <h2 className="text-2xl font-semibold text-gray-800 mb-6 dark:text-white">Add Lecturer</h2>
 
       {/* Image Upload */}
       <div className="flex items-center space-x-6 mb-6">
@@ -69,41 +69,41 @@ const AddLecturer = () => {
           accept="image/*"
           onChange={(e) => setLecturerImg(e.target.files[0])}
         />
-        <p className="text-gray-600">Upload Lecturer Picture</p>
+        <p className="text-gray-600 dark:text-white">Upload Lecturer Picture</p>
       </div>
 
       {/* Form Fields */}
       <div className="flex flex-col gap-6">
         <div className="flex flex-col">
-          <label className="text-gray-700 font-medium">Lecturer Name</label>
+          <label className="text-gray-700 font-medium dark:text-white">Lecturer Name</label>
           <input
             type="text"
             placeholder="Enter name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="border border-gray-300 w-[500px] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border border-gray-300 w-[500px] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-black"
             required
           />
         </div>
         <div className="flex flex-col">
-          <label className="text-gray-700 font-medium">Email</label>
+          <label className="text-gray-700 font-medium dark:text-white">Email</label>
           <input
             type="email"
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="border border-gray-300 w-[500px] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border border-gray-300 w-[500px] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-black"
             required
           />
         </div>
         <div className="flex flex-col">
-          <label className="text-gray-700 font-medium">Education</label>
+          <label className="text-gray-700 font-medium dark:text-white">Education</label>
           <input
             type="text"
             placeholder="Enter education qualification"
             value={degree}
             onChange={(e) => setDegree(e.target.value)}
-            className="border border-gray-300 w-[500px] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="border border-gray-300 w-[500px] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-black"
             required
           />
         </div>

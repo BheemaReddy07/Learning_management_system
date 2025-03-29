@@ -45,7 +45,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/course-detail/:courseId" element={<CourseDetail />} />
-          <Route path="/course/search" element={<SearchPage />} />
+          {/* <Route path="/course/search" element={<SearchPage />} /> */}
           <Route path="/All-courses" element={<AllCourses />} />
           {isAuthenticated() ? (
             <>

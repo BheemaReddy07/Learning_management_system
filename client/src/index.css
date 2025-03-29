@@ -126,7 +126,7 @@
   }
   html, body {
     @apply h-full;
-    background:#EFF6FF; 
+    background:h-full bg-background text-foreground; 
   }
   
 }

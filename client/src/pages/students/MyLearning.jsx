@@ -1,9 +1,11 @@
 import Course from "@/components/Course";
+import { AppContext } from "@/context/AppContext";
 
-import React from "react";
+import React, { useContext } from "react";
 
 const MyLearning = () => {
   const isLoading = false;
+  const {userData} = useContext(AppContext);
   const MyLearningCourse = [];
   return (
     <div className="max-w-4xl mx-auto my-24 px-4 md:px-0">
@@ -11,12 +13,21 @@ const MyLearning = () => {
       <div className="my-5">
         {isLoading ? (
           <MyLearningSkeleton />
-        ) : MyLearningCourse.length === 0 ? (
+        ) :  userData?.enrolledCourses?.length === 0 ? (
           <p>You are not enrolled for any courses</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2].map((course, index) => (
-              <Course key={index} />
+            {userData?.enrolledCourses?.map((course) => (
+              <Course 
+              key={course._id}
+              id={course._id} 
+              branch={course.branch}
+              courseTitle={course.courseTitle}
+              courseThumbnail={course.courseThumbnail}
+              lecturerName={course.lecturerData.name}
+              lecturerPhoto={course.lecturerData.photoUrl} 
+              semester={course.semester}
+              />
             ))}
           </div>
         )}
