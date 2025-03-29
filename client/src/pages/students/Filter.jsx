@@ -21,21 +21,7 @@ const categories = [
 const Filter = () => {
   return (
     <div className='w-full md:w-[20%]'>
-        <div className='flex items-center justify-between'>
-            <h1 className='font-semibold text-lg md:text-xl'>Filter Options</h1>
-            <Select>
-                <SelectTrigger>
-                    Sort By
-                </SelectTrigger>
-                <SelectContent>
-                    <SelectGroup>
-                        <SelectLabel>Sort by Price</SelectLabel>
-                        <SelectItem value="low">Low to High</SelectItem>
-                        <SelectItem value="high">High to Low</SelectItem>
-                    </SelectGroup>
-                </SelectContent>
-            </Select>
-        </div>
+         
         <Separator className="my-4" />
         <div>
             <h1 className='font-semibold mb-4'>CATEGORY</h1>

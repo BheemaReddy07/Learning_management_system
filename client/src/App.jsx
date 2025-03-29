@@ -25,6 +25,7 @@ import EditLecture from "./pages/admin/lecture/EditLecture";
 import CourseDetail from "./pages/students/CourseDetail";
 import CourseProgress from "./pages/students/CourseProgress";
 import SearchPage from "./pages/students/SearchPage";
+import AllCourses from "./pages/students/AllCourses";
 const App = () => {
   const navigate = useNavigate();
   const { showLogin, setShowLogin, token } = useContext(AppContext);
@@ -45,6 +46,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/course-detail/:courseId" element={<CourseDetail />} />
           <Route path="/course/search" element={<SearchPage />} />
+          <Route path="/All-courses" element={<AllCourses />} />
           {isAuthenticated() ? (
             <>
               <Route path="/my-learnings" element={<MyLearning />} />

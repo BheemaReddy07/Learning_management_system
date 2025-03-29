@@ -127,13 +127,13 @@ const MobileNavbar = () => {
           <Menu />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex flex-col">
+      <SheetContent className="flex flex-col bg-white">
         <SheetHeader className="flex flex-row items-center justify-between mt-2">
           <SheetTitle>OngoLearn</SheetTitle>
           <DarkMode />
         </SheetHeader>
         <Separator className="mr-2" />
-        <nav className="flex flex-col space-y-4">
+        <nav className="flex flex-col items-center space-y-4">
           <span>My Learnings</span>
           <span>Edit Profile</span>
           <span>Log out</span>

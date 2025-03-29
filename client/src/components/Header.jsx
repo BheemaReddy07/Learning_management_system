@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate()
   return (
     <div
       className="flex flex-col md:flex-row flex-wrap bg-gradient-to-r from-teal-500 to-blue-900 rounded-md px-6 mt-24 md:px-10 lg:px-20"
@@ -18,13 +20,13 @@ const Header = () => {
             and enhance your skills at your own pace.
           </p>
         </div>
-        <a
-          href="#courses"
+        <button onClick={()=>navigate('/all-courses')}
+           
           className="flex items-center gap-2 bg-white px-8 py-3 rounded-full text-gray-600 text-sm m-auto md:m-0 hover:scale-105 transition-all duration-300"
         >
           Browse Courses{" "}
           <img className="w-3" src="arrow_icon.svg" alt="Arrow Icon" />
-        </a>
+        </button>
       </div>
 
       {/*----------- Right Side -----------*/}

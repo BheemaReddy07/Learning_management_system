@@ -22,7 +22,7 @@ const Footer = () => {
         <div>
           <p className='text-xl font-medium mb-5'>Company</p>
           <ul className='flex flex-col gap-2 text-gray-600'>
-            <li className='cursor-pointer' onClick={() => navigate('/courses')}>Courses</li>
+            <li className='cursor-pointer' onClick={() => navigate('/all-courses')}>Courses</li>
             <li className='cursor-pointer' onClick={() => navigate('/instructors')}>Instructors</li>
             <li className='cursor-pointer' onClick={() => navigate('/blog')}>Blog</li>
             <li className='cursor-pointer' onClick={() => navigate('/privacy-policy')}>Privacy Policy</li>
