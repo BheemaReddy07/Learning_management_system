@@ -42,13 +42,13 @@ const AllCourses = () => {
    console.log(PublishedCourses)
     },[PublishedCourses])
     return (
-        <div className='mt-20'>
-            <p className='text-gray-600'>Browse courses by branch & semester</p>
+        <div className='sm:mt-24 mt-20'>
+            <p className='text-gray-600 dark:text-white'>Browse courses by branch & semester</p>
             <div className='flex flex-col sm:flex-row items-start gap-5 mt-5'>
               <div className='gap-3'>
  {/* Toggle Filter Button for Mobile */}
                 <button
-                    className={`py-1 px-3 border rounded text-sm transition-all sm:hidden ${showFilter ? "bg-primary text-white" : ""}`}
+                    className={`py-1 px-3 border rounded text-sm transition-all sm:hidden ${showFilter ? "bg-black text-white" : ""}`}
                     onClick={() => setShowFilter(prev => !prev)}
                 >
                     Filters
@@ -61,7 +61,7 @@ const AllCourses = () => {
                             key={b}
                             onClick={() => setSelectedBranch(prev => prev === b ? "" : b)} // Toggle selection
             
-                            className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded cursor-pointer ${selectedBranch === b ? 'bg-indigo-100 text-black' : ""}`}
+                            className={`w-[94vw] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-300 rounded cursor-pointer dark:text-white ${selectedBranch === b ? 'bg-indigo-100 text-black' : ""}`}
                         >
                             {b}
                         </p>

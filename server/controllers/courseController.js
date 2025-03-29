@@ -90,7 +90,7 @@ const editCourse = async (req, res) => {
 const getCourseDetailsById = async (req, res) => {
   try {
     const { courseId } = req.body;
-    const courseDetails = await courseModel.findById(courseId);
+    const courseDetails = await courseModel.findById(courseId).populate('lectures');
     if (!courseDetails) {
       return res
         .status(404)

@@ -132,8 +132,8 @@ const Login = () => {
 
   return (
     <div className=" fixed inset-0 z-10 flex items-center justify-center backdrop-blur-sm bg-black/30">
-      <form onSubmit={handleSubmit} className="min-h-[80vh] flex items-center">
-        <div className="bg-white flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-zinc-600 text-sm shadow-lg ">
+      <form onSubmit={handleSubmit} className="min-h-[80vh] flex items-center ">
+        <div className="bg-white flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-96 border rounded-xl text-zinc-600 text-sm shadow-lg dark:bg-black ">
           <img
             src="cross_icon.svg"
             alt="Close"
@@ -145,7 +145,7 @@ const Login = () => {
               setShowLogin(false);
             }}
           />
-          <p className="text-2xl font-semibold">
+          <p className="text-2xl font-semibold dark:text-white">
             {state === "Sign Up"
               ? "Create Account"
               : forgotPasswordMode
@@ -154,7 +154,7 @@ const Login = () => {
           </p>
           {state === "Sign Up" && (
             <div className="w-full">
-              <p>Full Name</p>
+              <p className="dark:text-white">Full Name</p>
               <input
                 className="border border-zinc-300 rounded w-full p-2 mt-1"
                 type="text"
@@ -167,7 +167,7 @@ const Login = () => {
           )}
 
           <div className="w-full">
-            <p>Email</p>
+            <p className="dark:text-white">Email</p>
             <input
               className="border border-zinc-300 rounded w-full p-2 mt-1"
               type="email"
@@ -179,7 +179,7 @@ const Login = () => {
           </div>
 
           <div className="w-full relative">
-            <p className="text-sm text-gray-700">Password</p>
+            <p className="text-sm text-gray-700 dark:text-white">Password</p>
             <div className="relative">
               <input
                 className="border border-zinc-300 rounded w-full p-2 mt-1 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -205,7 +205,7 @@ const Login = () => {
 
           {(state === "Sign Up" || forgotPasswordMode) && (
             <div className="w-full relative">
-              <p className="text-sm text-gray-700">Re-Password</p>
+              <p className="text-sm text-gray-700 dark:text-white">Re-Password</p>
               <div className="relative">
                 <input
                   className="border border-zinc-300 rounded w-full p-2 mt-1 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -234,9 +234,9 @@ const Login = () => {
 
           {otpSent && (
             <div className="w-full">
-              <p>OTP</p>
+              <p className="dark:text-white">OTP</p>
               <input
-                className="border border-zinc-300 rounded w-full p-2 mt-1"
+                className="border border-zinc-300 rounded w-full p-2 mt-1 "
                 type="text"
                 value={otp}
                 placeholder="OTP"

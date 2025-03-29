@@ -16,7 +16,7 @@ const CourseDetail = () => {
     const [isLoading,setIsLoading] = useState(false)
     const params = useParams()
     const courseId = params.courseId
-    const enrolledCourse = false
+     
     const enrollCourseHandler = async () =>{
         try {
             setIsLoading(true);
@@ -54,6 +54,22 @@ const CourseDetail = () => {
         }
     }
 
+    const getCourseDetailsById = async () =>{
+        try {
+            const {data} = await axios.post(backendurl+'/api/course/courseDetailsByID',{courseId})
+            if(data.success){
+                setCourseDetails(data.courseDetails)
+            }
+            else{
+                console.log(data.message)
+                toast.error(data.message)
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error(error)
+        }
+    }
+
     const handleContinueCourse = async () =>{
             if(enrollStatus){
                 navigate(`/course-progress/${courseId}`);
@@ -62,6 +78,9 @@ const CourseDetail = () => {
     useEffect(() => {
         if (token) {
             getCourseDetailsWithEnrolledStatus();
+        }
+        else{
+            getCourseDetailsById()
         }
     }, [token, courseId]);
   return (

@@ -8,7 +8,7 @@ courseRouter.post('/create',authUser,createCourse)
 courseRouter.get('/getadmincourses', authUser, getCreatorCourses);
 
 courseRouter.put("/edit-course",upload.single("courseThumbnail"),authUser,editCourse)
-courseRouter.post('/courseDetailsByID',authUser,getCourseDetailsById)
+courseRouter.post('/courseDetailsByID',getCourseDetailsById)
 
 
 courseRouter.post('/create-lecture',authUser,createLecture)

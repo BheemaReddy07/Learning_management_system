@@ -140,10 +140,10 @@ const MobileNavbar = () => {
           className="rounded-full bg-gray-200 hover:bg-gray-200"
           variant="outline"
         >
-          <Menu />
+          <Menu className="dark:bg-gray-950" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex flex-col bg-white">
+      <SheetContent className="flex flex-col bg-white dark:bg-gray-950">
         <SheetHeader className="flex flex-row items-center justify-between mt-2">
           <SheetTitle>
             <Link to={"/"}>OngoLearn</Link>
