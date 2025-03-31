@@ -74,8 +74,7 @@ const CourseTab = () => {
 
   useEffect(() => {
     if (courseId) getCourseDetailsByCourseId();
-    const interval = setInterval(getCourseDetailsByCourseId,10000);
-    return () =>clearInterval(interval)
+     
   }, [courseId,token,backendurl]);
 
   const changeEventHandler = (e) => {

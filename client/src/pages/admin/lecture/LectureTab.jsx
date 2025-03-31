@@ -126,8 +126,7 @@ const LectureTab = () => {
   useEffect(()=>{
     getLectureDetailsByID()
 
-    const interval = setInterval(getLectureDetailsByID,10000);
-    return () =>clearInterval(interval)
+    
   },[lectureId])
 
 

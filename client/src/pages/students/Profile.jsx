@@ -74,8 +74,7 @@ const Profile = () => {
       loadUserProfileData();
       
     }
-    const interval = setInterval(loadUserProfileData,10000);
-    return () =>clearInterval(interval)
+     
   }, [token]);
  
    

@@ -20,10 +20,10 @@ const Courses = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="max-w-7xl mx-auto p-6">
-        <h2 className="font-bold text-3xl text-center mb-2">Our Courses</h2>
-        <p className="font-medium text-md text-center mb-10">
+        <h2 className="font-bold text-3xl text-center mb-10">Our Courses</h2>
+        {/* <p className="font-medium text-md text-center mb-10">
           Simply browse through our extensive list of trusted doctors
-        </p>
+        </p> */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {isLoading
             ? Array.from({ length: 4 }).map((_, index) => (
