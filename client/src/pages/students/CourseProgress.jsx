@@ -115,6 +115,9 @@ const CourseProgress = () => {
     if(token){
       fetchCourseProgress();
     }
+
+    const interval = setInterval(fetchCourseProgress,10000);
+    return () =>clearInterval(interval)
    
 }, [token, courseId]);
 

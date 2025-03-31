@@ -32,15 +32,15 @@ const AllCourses = () => {
 
     useEffect(() => {
         fetchPublishedCourses();
+        const interval = setInterval(fetchPublishedCourses,10000);
+    return () =>clearInterval(interval)
     }, []);
 
     useEffect(() => {
         ApplyFilter();
     }, [PublishedCourses, selectedSemester, selectedBranch]);
 
-    useEffect(()=>{
-   console.log(PublishedCourses)
-    },[PublishedCourses])
+    
     return (
         <div className='sm:mt-24 mt-20'>
             <p className='text-gray-600 dark:text-white'>Browse courses by branch & semester</p>

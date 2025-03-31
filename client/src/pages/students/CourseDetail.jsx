@@ -76,13 +76,24 @@ const CourseDetail = () => {
             }
     }
     useEffect(() => {
-        if (token) {
-            getCourseDetailsWithEnrolledStatus();
-        }
-        else{
-            getCourseDetailsById()
-        }
+        const fetchData = async () => {
+            if (token) {
+                await getCourseDetailsWithEnrolledStatus();
+            } else {
+                await getCourseDetailsById();
+            }
+        };
+    
+        fetchData(); // Fetch immediately
+    
+        // Set interval to fetch data every 10 seconds (adjust as needed)
+        const interval = setInterval(fetchData, 10000);
+    
+        // Cleanup function to clear interval when component unmounts
+        return () => clearInterval(interval);
+    
     }, [token, courseId]);
+    
   return (
     <div className='mt-20 space-y-5'>
         <div className='bg-[#2D2F31] text-white'>

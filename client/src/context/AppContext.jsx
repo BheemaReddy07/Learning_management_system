@@ -118,13 +118,20 @@ const AppContextProvider = (props) => {
 
   useEffect(() => {
     getLecturers();
+
+    const interval = setInterval(getLecturers,10000);
+    return () =>clearInterval(interval)
   }, []);
 
   useEffect(() => {
     getadminCourses();
+    const interval = setInterval(getadminCourses,10000);
+    return () =>clearInterval(interval)
   }, []);
   useEffect(()=>{
     fetchPublishedCourses();
+    const interval = setInterval(fetchPublishedCourses,10000);
+    return () =>clearInterval(interval)
     
   },[])
   return (

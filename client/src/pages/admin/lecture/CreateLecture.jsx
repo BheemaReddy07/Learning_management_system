@@ -64,6 +64,8 @@ const CreateLecture = () => {
   
   useEffect(() => {
     getCourseLectures();
+    const interval = setInterval(getCourseLectures,10000);
+    return () =>clearInterval(interval)
   }, [courseId]);
 
   return (

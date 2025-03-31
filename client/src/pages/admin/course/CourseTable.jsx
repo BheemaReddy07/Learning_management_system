@@ -28,7 +28,9 @@ const CourseTable = () => {
  
 
   useEffect(() => {
-    getadminCourses();  
+    getadminCourses();
+    const interval = setInterval(getadminCourses,10000);
+    return () =>clearInterval(interval)  
   }, [adminCourses]);
   
 

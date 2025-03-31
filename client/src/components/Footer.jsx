@@ -45,6 +45,7 @@ const Footer = () => {
           <ul className='flex flex-col gap-3 text-gray-600'>
             <li>+91 77994 47698</li>
             <li><a href='mailto:bheemareddy29102003@gmail.com'>bheemareddy29102003@gmail.com</a></li>
+            <li><a href='mailto:ongolearn2025@gmail.com'>ongolearn2025@gmail.com</a></li>
           </ul>
         </div>
       </div>

@@ -93,6 +93,7 @@ const requestOTP = async (req, res) => {
       await userData.save();
     }
 
+  
     await sendOTPEmail(email, otp, name);
     res.json({ success: true, message: "OTP sent to email" });
   } catch (error) {

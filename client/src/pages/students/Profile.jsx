@@ -74,10 +74,10 @@ const Profile = () => {
       loadUserProfileData();
       
     }
+    const interval = setInterval(loadUserProfileData,10000);
+    return () =>clearInterval(interval)
   }, [token]);
-useEffect(()=>{
-  console.log(userData)
-},[])
+ 
    
   return (
     <div className="max-w-4xl mx-auto px-4 my-24">
