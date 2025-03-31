@@ -6,7 +6,7 @@ import { addLecturer, getLecturers } from '../controllers/lecturerController.js'
 const lecturerRoute = express.Router();
 
 lecturerRoute.post("/add-lecturer",authUser,upload.single("lecturerImg"),addLecturer)
-lecturerRoute.get("/get-lecturer",authUser,getLecturers)
+lecturerRoute.get("/get-lecturer",getLecturers)
 
 
 export default lecturerRoute

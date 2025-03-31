@@ -40,7 +40,8 @@ const AppContextProvider = (props) => {
       if (data.success) {
         setLecturers(data.lecturerData);
       } else {
-        toast.error(data.message);
+        toast.error(data.message)
+         
       }
     } catch (error) {
       console.log(error);
