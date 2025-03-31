@@ -51,7 +51,7 @@ const Navbar = () => {
             onClick={() => navigate("/")}
             className="hidden md:block font-extrabold text-2xl cursor-pointer"
           >
-            OngoLearn
+            Ongolearn
           </h1>
         </div>
 
