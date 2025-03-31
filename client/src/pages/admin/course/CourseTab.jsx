@@ -188,7 +188,7 @@ const CourseTab = () => {
             )}
           </Button>
 
-          <Button>Remove Course</Button>
+          {/* <Button>Remove Course</Button> */}
         </div>
       </CardHeader>
       <CardContent>
