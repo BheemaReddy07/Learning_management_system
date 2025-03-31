@@ -24,9 +24,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Separator } from "@radix-ui/react-dropdown-menu";
+
 
 import { Link, useNavigate } from "react-router-dom";
+import { Separator } from "./ui/separator";
 
 const Navbar = () => {
   const { token, setToken, setShowLogin, showLogin, userData } =
@@ -143,7 +144,7 @@ const MobileNavbar = () => {
           <Menu className="dark:bg-gray-950" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex flex-col bg-white dark:bg-gray-950">
+      <SheetContent className="flex flex-col bg-white dark:bg-gray-950 w-3/5">
         <SheetHeader className="flex flex-row items-center justify-between mt-2">
           <SheetTitle>
             <Link to={"/"}>OngoLearn</Link>
@@ -153,14 +154,17 @@ const MobileNavbar = () => {
         <Separator className="mr-2" />
         <nav className="flex flex-col items-center space-y-4">
           <SheetClose asChild>
-            <Link to="/my-learnings">My Learning</Link>
+            <Link   to="/my-learnings">My Learning</Link>
           </SheetClose>
+          <Separator className="mr-2" />
           <SheetClose asChild>
-            <Link to="/profile">Profile</Link>
+            <Link   to="/profile">Profile</Link>
           </SheetClose>
+          <Separator className="mr-2" />
           <SheetClose asChild>
-            <button onClick={logout}>Logout</button>
+            <button   onClick={logout}>Logout</button>
           </SheetClose>
+          <Separator className="mr-2" />
         </nav>
         {userData?.role === "instructor" && (
           <SheetFooter>
