@@ -94,7 +94,7 @@ const AllCourses = () => {
                     filterCourses?.length > 0  ? (<div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
                         {filterCourses.map((item) => (
                             <Link key={item._id} to={`/course-detail/${item._id}`}>
-                                 <Card className="overflow-hidden rounded-lg dark:bg-gray-800 bg-white shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                                <Card className="overflow-hidden rounded-lg dark:bg-gray-800 bg-white shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
                                       <div className="relative">
                                         <img
                                           src={item.courseThumbnail}
@@ -108,7 +108,7 @@ const AllCourses = () => {
                                           <div className="flex items-center gap-3">
                                             <Avatar className="h-8 w-8">
                                               <AvatarImage src={item.lecturerData.photoUrl} alt="@shadcn" />
-                                              <AvatarFallback>{item.lecturerData.name? item.lecturerData.name?.[0].toUpperCase() : "N/A"}</AvatarFallback>
+                                              <AvatarFallback>{item.lecturerData.name? item.lecturerData?.name?.[0].toUpperCase() : "N/A"}</AvatarFallback>
                                             </Avatar>
                                             <h1 className="font-medium text-sm">{item.lecturerData?.name}</h1>
                                           </div>
