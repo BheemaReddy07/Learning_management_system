@@ -32,7 +32,10 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleOTPRequest = async () => {
-    
+    if (!email.endsWith("@rguktong.ac.in")) {
+      toast.error("Only RGUKT Ongole student emails are allowed!");
+      return;
+  }
     try {
       setIsLoading(true);
       const endpoint =
