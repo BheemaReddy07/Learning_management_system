@@ -94,38 +94,34 @@ const AllCourses = () => {
                     filterCourses?.length > 0  ? (<div className='w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
                         {filterCourses.map((item) => (
                             <Link key={item._id} to={`/course-detail/${item._id}`}>
-                                <Card className="overflow-hidden rounded-lg dark:bg-gray-800 bg-white shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-                                    <div className="relative">
+                                 <Card className="overflow-hidden rounded-lg dark:bg-gray-800 bg-white shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                                      <div className="relative">
                                         <img
-                                            src={item.courseThumbnail}
-                                            alt={item.courseTitle}
-                                            className="w-full h-36 object-cover rounded-t-lg"
+                                          src={item.courseThumbnail}
+                                          className="w-full h-36 object-cover rounded-t-lg"
                                         />
-                                        <CardContent className="px-5 py-4 space-y-3">
-                                            <h1 className="hover:underline font-bold text-lg truncate">
-                                                {item.courseTitle}
-                                            </h1>
-                                            <div className="flex items-center justify-between">
-                                                <div className="flex items-center gap-3">
-                                                    <Avatar className="h-8 w-8">
-                                                        <AvatarImage src={item.lecturerData.photoUrl} alt={item.lecturerData.photoUrl} />
-                                                        <AvatarFallback>
-                                                            {item.lecturerName ? item.lecturerName[0].toUpperCase() : "N/A"}
-                                                        </AvatarFallback>
-                                                    </Avatar>
-                                                    <h1 className="font-medium text-sm">{item.lecturerData.name || "Unknown"}</h1>
-                                                </div>
-                                                <Badge className="bg-blue-600 text-white px-2 py-1 text-xs rounded-full">
-                                                      {item.semester}
-                                                </Badge>
-                                            </div>
-                                            <div>
-                                                <span className="text-lg font-semibold">Branch:</span> 
-                                                <span className="text-md font-medium">{item.branch}</span>
-                                            </div>
-                                        </CardContent>
-                                    </div>
-                                </Card>
+                                         <CardContent className="px-5 py-4 space-y-3">
+                                        <h1 className="hover:underline font-bold text-lg truncate">
+                                        {item.courseTitle}
+                                        </h1>
+                                        <div className="flex items-center justify-between">
+                                          <div className="flex items-center gap-3">
+                                            <Avatar className="h-8 w-8">
+                                              <AvatarImage src={item.lecturerData.photoUrl} alt="@shadcn" />
+                                              <AvatarFallback>{item.lecturerData.name? item.lecturerData.name?.[0].toUpperCase() : "N/A"}</AvatarFallback>
+                                            </Avatar>
+                                            <h1 className="font-medium text-sm">{item.lecturerData?.name}</h1>
+                                          </div>
+                                          <Badge className={'bg-blue-600 text-white px-2 py-1 text-xs rounded-full'}>
+                                              {item.semester}
+                                          </Badge>
+                                        </div>
+                                        <div >
+                                            <span className="text-lg font-semibold">Branch:</span> <span className="text-md font-medium">{item.branch}</span>
+                                        </div>
+                                      </CardContent>
+                                      </div>
+                                    </Card>
                             </Link>
                         ))}
                     </div>) :(<CourseNotFound />)

@@ -4,6 +4,7 @@ import { Skeleton } from "./ui/skeleton";
 import Course from "../components/Course";
 import { AppContext } from "@/context/AppContext";
 import { useNavigate } from "react-router-dom";
+import { Slice } from "lucide-react";
 
 const Courses = () => {
   const {
@@ -29,7 +30,7 @@ const Courses = () => {
             ? Array.from({ length: 4 }).map((_, index) => (
                 <CourseSkeleton key={index} />
               ))
-            : PublishedCourses?.map((courses, index) => (
+            : PublishedCourses?.slice(0,4).map((courses, index) => (
                 <Course
                   key={index}
                   id={courses._id}
