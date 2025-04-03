@@ -166,6 +166,7 @@ const Profile = () => {
                   <Input
                     type="text"
                     placeholder="Name"
+                    maxLength={10}
                     className="col-span-3"
                     value={userData.phone}
                     onChange={(e) =>
