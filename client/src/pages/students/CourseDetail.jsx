@@ -25,7 +25,7 @@ const CourseDetail = () => {
                 toast.success(data.message)
             }else{
                 toast.error(data.message)
-                console.log(data.message)
+                
             }
         } catch (error) {
             console.error(error);
@@ -40,11 +40,11 @@ const CourseDetail = () => {
             
             if(data.success){
                 setCourseDetails(data.course);
-                console.log(data.course)
+                 
                 setEnrollStatus(data.enrolled)
             }
             else{
-                console.log(data.message)
+                 
                 toast.error(data.message)
             }
 
@@ -61,7 +61,7 @@ const CourseDetail = () => {
                 setCourseDetails(data.courseDetails)
             }
             else{
-                console.log(data.message)
+                
                 toast.error(data.message)
             }
         } catch (error) {

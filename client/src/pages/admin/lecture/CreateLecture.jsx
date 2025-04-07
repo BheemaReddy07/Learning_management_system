@@ -26,7 +26,7 @@ const CreateLecture = () => {
       );
       if (data.success) {
         setCourseLectures(data.lectures);
-        console.log(data.lectures);
+        
       } else {
         toast.error(data.message);
       }
@@ -48,7 +48,7 @@ const CreateLecture = () => {
         toast.success(data.message);
         setLectureTitle("");
         getCourseLectures();
-        console.log(data.lecture);
+         
       } else {
         toast.error(data.message);
       }
