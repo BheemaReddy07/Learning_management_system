@@ -11,30 +11,26 @@ import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { AppContext } from "@/context/AppContext";
 import axios from "axios";
- 
+
 import { Loader2 } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const LectureTab = () => {
-
   const params = useParams();
   const navigate = useNavigate();
-  const courseId  = params.courseId;
+  const courseId = params.courseId;
   const lectureId = params.lectureId;
   const { backendurl, token } = useContext(AppContext);
   const [removeLoading, setRemoveLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [lectureTitle,setLectureTitle] = useState("")
+  const [lectureTitle, setLectureTitle] = useState("");
   const [uploadVideoInfo, setUploadVideoInfo] = useState(null);
   const [mediaProgress, setMediaProgress] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [btnDisable, setBtnDisable] = useState(true);
-  const [isVideoUploadedAlready,setIsVideoUploadedAlready] = useState(false);
-
-  
-
+  const [isVideoUploadedAlready, setIsVideoUploadedAlready] = useState(false);
 
   const fileChangeHandler = async (e) => {
     const file = e.target.files[0];
@@ -56,7 +52,7 @@ const LectureTab = () => {
         );
 
         if (data.success) {
-          console.log(data)
+          console.log(data);
           setUploadVideoInfo({
             videoUrl: data.result.url,
             publicId: data.result.public_id,
@@ -73,66 +69,68 @@ const LectureTab = () => {
     }
   };
 
-  const removeLecture = async () =>{
+  const removeLecture = async () => {
     try {
       setRemoveLoading(true);
-      const {data} = await axios.delete(backendurl+'/api/course/delete-lecture',{headers:{token},data:{lectureId}});
-      if(data.success){
+      const { data } = await axios.delete(
+        backendurl + "/api/course/delete-lecture",
+        { headers: { token }, data: { lectureId } }
+      );
+      if (data.success) {
         toast.success(data.message);
-        navigate( `/admin/course/${courseId}/lecture`)
-      }
-      else{
-        toast.error(data.message)
+        navigate(`/admin/course/${courseId}/lecture`);
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error.message)
-      console.log(error)
+      toast.error(error.message);
+      console.log(error);
+    } finally {
+      setRemoveLoading(false);
     }
-    finally{
-      setRemoveLoading(false)
-    }
-  }
+  };
 
-  const getLectureDetailsByID = async () =>{
+  const getLectureDetailsByID = async () => {
     try {
-      const {data} = await axios.get(backendurl+`/api/course/get-lectureById/${lectureId}`,{headers:{token} })
-        if(data.success){
-         setLectureTitle(data.lecture.lectureTitle)
-         setIsVideoUploadedAlready(data.lecture?.publicId)
-         
-        }
-        else{
-          toast.error(data.message)
-        }
-      
-    } catch (error) {
-      console.log(error)
-      toast.error(error.message)
-    }
-  }
-  
-  const updateLectureDetails = async () =>{
-    try {
-      const {data} = await axios.post(backendurl+'/api/course/edit-lecture',{uploadVideoInfo,lectureTitle,courseId,lectureId},{headers:{token}})
-      if(data.success){
-      toast.success(data.message)
-       navigate( `/admin/course/${courseId}/lecture`)
+      const { data } = await axios.get(
+        backendurl + `/api/course/get-lectureById/${lectureId}`,
+        { headers: { token } }
+      );
+      if (data.success) {
+        setLectureTitle(data.lecture.lectureTitle);
+        setIsVideoUploadedAlready(data.lecture?.publicId);
+      } else {
+        toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error.message)
-      console.log(error)
+      console.log(error);
+      toast.error(error.message);
     }
-  }
-  useEffect(()=>{
-    getLectureDetailsByID()
+  };
 
-    
-  },[lectureId])
-
+  const updateLectureDetails = async () => {
+    try {
+      const { data } = await axios.post(
+        backendurl + "/api/course/edit-lecture",
+        { uploadVideoInfo, lectureTitle, courseId, lectureId },
+        { headers: { token } }
+      );
+      if (data.success) {
+        toast.success(data.message);
+        navigate(`/admin/course/${courseId}/lecture`);
+      }
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getLectureDetailsByID();
+  }, [lectureId]);
 
   return (
     <Card>
-      <CardHeader className="flex justify-between">
+      <CardHeader className="flex flex-col md:flex-row justify-between gap-4  ">
         <div>
           <CardTitle>Edit Lecture</CardTitle>
           <CardDescription>
@@ -140,7 +138,11 @@ const LectureTab = () => {
           </CardDescription>
         </div>
         <div className="flex items-center gap-2">
-          <Button disabled={removeLoading} variant="destructive" onClick={removeLecture}>
+          <Button
+            disabled={removeLoading}
+            variant="destructive"
+            onClick={removeLecture}
+          >
             {removeLoading ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin mr-2" /> please wait
@@ -152,7 +154,7 @@ const LectureTab = () => {
         </div>
       </CardHeader>
       <CardContent className=" flex  flex-col gap-4">
-      <div>
+        <div>
           <Label>Title</Label>
           <Input
             value={lectureTitle}
@@ -166,25 +168,37 @@ const LectureTab = () => {
             {" "}
             Video <span className="text-red-500">*</span>
           </Label>
-          <div className="flex items-center gap-5"><Input
-            type="file"
-            accept="video/*"
-            placeholder="Ex.Introduction to JS"
-            onChange={fileChangeHandler}
-            className="w-fit"
-          />
-         {
-          isVideoUploadedAlready &&  <span className="text-green-500 text-lg font-bold">Already Uploaded</span>
-         }</div>
-        </div>
-        {mediaProgress && (
-          <div className="my-4">
-            <Progress value={uploadProgress} />
-            <p>{uploadProgress}% uploaded</p>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+            <Input
+              type="file"
+              accept="video/*"
+              placeholder="Ex.Introduction to JS"
+              onChange={fileChangeHandler}
+              className="w-fit"
+            />
+            {isVideoUploadedAlready && (
+              <span className="text-green-500 text-lg font-bold">
+                Already Uploaded
+              </span>
+            )}
           </div>
-        )}
+        </div>
+        <div className="min-h-[50px]">
+          {mediaProgress && (
+            <div className="my-2">
+              <Progress value={uploadProgress} />
+              <p className="text-sm text-muted-foreground mt-1">
+                {uploadProgress}% uploaded
+              </p>
+            </div>
+          )}
+        </div>
+
         <div className="mt-4">
-          <Button disabled={isLoading ||btnDisable} onClick={updateLectureDetails}>
+          <Button
+            disabled={isLoading || btnDisable}
+            onClick={updateLectureDetails}
+          >
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

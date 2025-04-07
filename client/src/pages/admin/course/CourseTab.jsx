@@ -159,7 +159,7 @@ const CourseTab = () => {
 
   return (
     <Card>
-      <CardHeader className="flex flex-row justify-between">
+      <CardHeader className="flex flex-col sm:flex-row sm:justify-between gap-4">
         <div>
           <CardTitle>Basic Course Information</CardTitle>
           <CardDescription>
@@ -167,7 +167,7 @@ const CourseTab = () => {
           </CardDescription>
         </div>
         <div className="space-x-2">
-           {console.log(lectureCount)}
+            
           <Button
             onClick={togglePubishStatus}
             variant="outline"
@@ -212,7 +212,7 @@ const CourseTab = () => {
               placeholder="Ex. Become a Network Analyst"
             />
           </div>
-          <div className="flex place-items-center gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
               <Label>Branch</Label>
               <Select onValueChange={selectBranch} value={input.branch}>
@@ -264,7 +264,7 @@ const CourseTab = () => {
             {previewThumbnail && (
               <img
                 src={previewThumbnail}
-                className="h-64 my-2"
+                className="w-full max-w-sm my-2 rounded-lg shadow"
                 alt="Course Thumbnail"
               />
             )}

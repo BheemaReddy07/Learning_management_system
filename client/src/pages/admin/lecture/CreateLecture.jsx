@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
@@ -69,12 +69,23 @@ const CreateLecture = () => {
   }, [courseId]);
 
   return (
-    <div className="flex-1  mt-24 mx-[-150px]">
+    <div className="flex-1  mt-24 lg:mx-[-150px]">
       <div className="mb-4">
-        <h1 className="font-bold text-xl">
+        <div className="flex items-center gap-2">
+        <Button
+            size="icon"
+            variant="outline"
+            className="rounded-full"
+            onClick={() => navigate(`/admin/course/${courseId}`)}
+          >
+            <ArrowLeft size={16} />
+          </Button>
+          <h1 className="hidden md:block font-bold text-xl">
           Lets add some basic course details for your new course
         </h1>
-        <p className="text-sm">some information to your new course</p>
+        </div>
+        
+        <p className="hidden md:block text-sm">some information to your new course</p>
       </div>
       <div className="space-y-4">
         <div>
