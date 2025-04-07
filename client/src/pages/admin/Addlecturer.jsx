@@ -48,11 +48,11 @@ const AddLecturer = () => {
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className="w-full max-w-[1300px]   mt-20 bg-white shadow-md rounded-lg p-8 mx-[-150px] dark:bg-black  ">
+    <form onSubmit={onSubmitHandler} className="w-full max-w-4xl   mt-20 bg-white shadow-2xl rounded-lg p-4  sm:p-8 mx-auto dark:bg-black  ">
       <h2 className="text-2xl font-semibold text-gray-800 mb-6 dark:text-white">Add Lecturer</h2>
 
       {/* Image Upload */}
-      <div className="flex items-center space-x-6 mb-6">
+      <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 mb-6">
         <label htmlFor="lecturer-img" className="cursor-pointer">
           <div className="w-20 h-20 bg-gray-100 border border-gray-300 rounded-full flex items-center justify-center overflow-hidden">
             {lecturerImg ? (
@@ -81,7 +81,7 @@ const AddLecturer = () => {
             placeholder="Enter name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="border border-gray-300 w-[500px] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-black"
+            className="border border-gray-300 w-full sm:w-[500px] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-black"
             required
           />
         </div>
@@ -92,7 +92,7 @@ const AddLecturer = () => {
             placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="border border-gray-300 w-[500px] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-black"
+            className="border border-gray-300 w-full sm:w-[500px] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-black"
             required
           />
         </div>
@@ -103,7 +103,7 @@ const AddLecturer = () => {
             placeholder="Enter education qualification"
             value={degree}
             onChange={(e) => setDegree(e.target.value)}
-            className="border border-gray-300 w-[500px] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-black"
+            className="border border-gray-300 w-full sm:w-[500px] rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-black"
             required
           />
         </div>

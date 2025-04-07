@@ -44,7 +44,7 @@ const Navbar = () => {
   return (
     <div className="h-16 dark:bg-[#0A0A0A] bg-white border-b-2 dark:border-b-gray-80 fixed top-0 left-0 right-0 duration-300 z-10 bg-gradient-to-b from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900">
       {/*Desktop */}
-      <div className=" max-w-7xl mx-auto hidden md:flex justify-between items-center  gap-10 h-full">
+      <div className=" max-w-7xl mx-auto hidden lg:flex justify-between items-center  gap-10 h-full">
         <div className="flex items-center gap-2">
           <School size={"30"} />
           <h1
@@ -105,7 +105,7 @@ const Navbar = () => {
         </div>
       </div>
       {/* Mobile Device */}
-      <div className="flex md:hidden items-center justify-between px-4 h-full">
+      <div className="flex lg:hidden items-center justify-between px-4 h-full">
         <h1 className="font-extrabold text-2xl" onClick={() => navigate("/")}>
           OngoLearn
         </h1>
@@ -144,7 +144,8 @@ const MobileNavbar = () => {
           <Menu className="dark:bg-gray-950" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex flex-col bg-white dark:bg-gray-950 w-3/5">
+      <SheetContent className="flex flex-col bg-white dark:bg-gray-950 w-3/5 px-4 py-6">
+      
         <SheetHeader className="flex flex-row items-center justify-between mt-2">
           <SheetTitle>
             <Link to={"/"}>OngoLearn</Link>
@@ -162,18 +163,24 @@ const MobileNavbar = () => {
           </SheetClose>
           <Separator className="mr-2" />
           <SheetClose asChild>
-            <button   onClick={logout}>Logout</button>
+          <Button variant="ghost" onClick={logout}>Logout</Button>
           </SheetClose>
           <Separator className="mr-2" />
         </nav>
         {userData?.role === "instructor" && (
-          <SheetFooter>
+          <div className="flex flex-col items-center space-y-4  ">
             <SheetClose asChild>
-              <Button>
-                <Link to="/admin">Dashboard</Link>
-              </Button>
+               
+                <Link   to="/admin/course"><Button className="w-full">Courses</Button></Link>
+             
             </SheetClose>
-          </SheetFooter>
+            <Separator className="mr-2" />
+            <SheetClose asChild>
+               
+                <Link   to="/admin/add-lecturer"><Button className="w-full">Add Lecturers</Button></Link>
+              
+            </SheetClose>
+          </div>
         )}
       </SheetContent>
     </Sheet>
