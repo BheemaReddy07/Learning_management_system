@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { AppContext } from "@/context/AppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -60,12 +60,22 @@ const AddCourse = () => {
   };
 
   return (
-    <div className="flex-1  mt-24 mx-[-150px]">
+    <div className="flex-1  mt-24 lg:mx-[-150px]">
       <div className="mb-4">
-        <h1 className="font-bold text-xl">
+      <div className="flex items-center gap-2">
+        <Button
+            size="icon"
+            variant="outline"
+            className="rounded-full"
+            onClick={() => navigate(`/admin/course`)}
+          >
+            <ArrowLeft size={16} />
+          </Button>
+          <h1 className="hidden lg:block  font-bold text-xl">
           Lets add some basic course details for your new course
         </h1>
-        <p className="text-sm">basic details related to course</p>
+        </div>
+        <p className="hidden lg:block ml-12 text-sm">basic details related to course</p>
       </div>
       <div className="space-y-4">
         <div>
