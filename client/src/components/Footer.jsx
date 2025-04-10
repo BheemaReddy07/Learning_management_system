@@ -11,10 +11,10 @@ const Footer = () => {
         {/* --Left Section (About) -- */}
         <div>
           <h1 onClick={() => navigate("/")} className=" font-extrabold text-2xl cursor-pointer">
-            OngoLearn
+            On-Go Learn
           </h1>
           <p className='w-full md:w-2/3 text-gray-600 leading-6'>
-            OngoLearn is your gateway to quality online education. Learn from expert instructors, earn certifications, and upskill for a better future.
+            On Go Learn is your gateway to quality online education. Learn from expert instructors, earn certifications, and upskill for a better future.
           </p>
         </div>
 
