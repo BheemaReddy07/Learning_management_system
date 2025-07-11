@@ -61,9 +61,7 @@ const requestOTP = async (req, res) => {
     if (!validator.isEmail(email)) {
       return res.json({ success: false, message: "Not a valid email" });
     }
-    if (!email.endsWith("@rguktong.ac.in")) {
-      return res.status(400).json({ message: "Only RGUKT Ongole student emails are allowed!" });
-  }
+  
 
     if (password.length < 8) {
       return res.json({ success: false, message: "Enter a Strong Password" });

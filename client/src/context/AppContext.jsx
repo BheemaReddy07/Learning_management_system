@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import {jwtDecode} from "jwt-decode";
 
 export const AppContext = createContext();
 
@@ -40,8 +41,7 @@ const AppContextProvider = (props) => {
       if (data.success) {
         setLecturers(data.lecturerData);
       } else {
-        toast.error(data.message)
-         
+        toast.error(data.message);
       }
     } catch (error) {
       console.log(error);
@@ -69,11 +69,10 @@ const AppContextProvider = (props) => {
       const { data } = await axios.get(
         backendurl + "/api/course/published-courses"
       );
-      
-      if(data.success){
-        setPublishedCourses(data.courses)
-      }
-      else {
+
+      if (data.success) {
+        setPublishedCourses(data.courses);
+      } else {
         toast.error("No published courses found");
       }
     } catch (error) {
@@ -82,13 +81,10 @@ const AppContextProvider = (props) => {
     }
   };
 
-  const enrolledCourses = async () =>{
+  const enrolledCourses = async () => {
     try {
-      
-    } catch (error) {
-      
-    }
-  }
+    } catch (error) {}
+  };
   const value = {
     userData,
     setUserData,
@@ -106,7 +102,7 @@ const AppContextProvider = (props) => {
     getadminCourses,
     PublishedCourses,
     setPublishedCourses,
-    fetchPublishedCourses
+    fetchPublishedCourses,
   };
 
   useEffect(() => {
@@ -120,21 +116,42 @@ const AppContextProvider = (props) => {
   useEffect(() => {
     getLecturers();
 
-    const interval = setInterval(getLecturers,10000);
-    return () =>clearInterval(interval)
+    const interval = setInterval(getLecturers, 10000);
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     getadminCourses();
-    const interval = setInterval(getadminCourses,10000);
-    return () =>clearInterval(interval)
+    const interval = setInterval(getadminCourses, 10000);
+    return () => clearInterval(interval);
   }, []);
-  useEffect(()=>{
+  useEffect(() => {
     fetchPublishedCourses();
-    const interval = setInterval(fetchPublishedCourses,10000);
-    return () =>clearInterval(interval)
+    const interval = setInterval(fetchPublishedCourses, 10000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+     try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken.exp < currentTime) {
+        toast.error("Session expired. Please log in again.");
+        localStorage.removeItem("token");
+        setToken("");
+        setUserData(false);
+      }
+     } catch (error) {
+       console.log(error);
+      
+     }
+    }
     
-  },[])
+    
+  }, []);
+
   return (
     <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
   );

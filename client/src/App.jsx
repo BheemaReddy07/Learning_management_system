@@ -29,6 +29,7 @@ import AllCourses from "./pages/students/AllCourses";
 import AdminRoute from "./components/AdminRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddLecturer from "./pages/admin/Addlecturer";
+import AllLecturers from "./components/AllLecturers";
 const App = () => {
   const navigate = useNavigate();
   const { showLogin, setShowLogin, token,userData } = useContext(AppContext);
@@ -52,7 +53,8 @@ const App = () => {
           <Route path="/course-detail/:courseId" element={<CourseDetail />} />
           {/* <Route path="/course/search" element={<SearchPage />} /> */}
           <Route path="/All-courses" element={<AllCourses />} />
-
+          <Route path="/All-lecturers" element={<AllLecturers />} />
+          
           {/* Protected Student Routes */}
           <Route element={<ProtectedRoute />}>
             <Route path="/my-learnings" element={<MyLearning />} />
