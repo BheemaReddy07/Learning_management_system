@@ -131,7 +131,7 @@ const verifyOTPandRegister = async (req, res) => {
       verified: true,
     });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET,{expiresIn:"2d"});
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     res.json({ success: true, token, message: `welcome ${user.name}` });
   } catch (error) {
     console.error("Error verifying OTP!!:", error);
@@ -156,7 +156,7 @@ const loginUser = async (req, res) => {
       {
         /*generateToken(res, user, `Welcome back ${user.name}`); */
       }
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET,{expiresIn:"2d"});
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
       res.json({ success: true, token, message: `welcome Back ${user.name}` });
     } else {
       res.json({ success: false, message: "Incorrect Password" });
