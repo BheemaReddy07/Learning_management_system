@@ -61,8 +61,8 @@ Create a `.env` file inside the `backend/` folder:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/BheemaReddy07/Content_Management_System.git
-cd Content_Management_System
+git clone https://github.com/BheemaReddy07/Learning_Management_System.git
+cd Learning_Management_System
 ```
 ### 2. Install server Dependencies
 ```bash
