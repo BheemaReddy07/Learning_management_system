@@ -340,8 +340,8 @@ const Login = () => {
           )}
           <div>
             <p className="text-gray-600/70 mb-1">To Login into Admin use below credentials:</p>
-            <p className='text-gray-600/70 font-mono'>admin Email:<span className='font-normal text-gray-600/80'>richardjames@prescripto.com</span></p>
-            <p className='text-gray-600/70 font-mono'>admin Password: <span className='font-normal text-gray-600/80'>123456789</span></p></div>
+            <p className='text-gray-600/70 font-mono'>admin Email:<span className='font-normal text-gray-600/80'>ongolearn2025@gmail.com</span></p>
+            <p className='text-gray-600/70 font-mono'>admin Password: <span className='font-normal text-gray-600/80'>qwerty1234</span></p></div>
         </div>
       </form>
     </div>
