@@ -42,5 +42,7 @@ app.get('/',(req,res)=>{
 // WebSocket Connection Handling
  
 
-app.listen(port ,()=>console.log('server started',port))
+//app.listen(port ,()=>console.log('server started',port))
+
+export default app
 
