@@ -89,7 +89,8 @@ const Profile = () => {
               alt="@shadcn"
             />
             <AvatarFallback>
-              {userData?.name?.[0].toUpperCase() || "N/A"}
+             {userData?.name?.[0] ? userData.name[0].toUpperCase() : "N/A"}
+
             </AvatarFallback>
           </Avatar>
         </div>
@@ -130,7 +131,7 @@ const Profile = () => {
             <h1 className="font-semibold text-gray-900 dark:text-gray-100">
               Branch:
               <span className="font-normal text-gray-700 dark:text-gray-300 ml-2">
-                {userData?.branch ? userData.branch.toUpperCase() : "N/A"}
+              {userData?.branch ? userData.branch.toUpperCase() : "N/A"}
               </span>
             </h1>
           </div>
