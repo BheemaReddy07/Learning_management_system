@@ -30,7 +30,7 @@ const Profile = () => {
   const { userData, setUserData, backendurl, token, loadUserProfileData } =
     useContext(AppContext);
   const [isLoading, setIsLoading] = useState(false);
-  
+
 
   const [image, setImage] = useState(false);
   const [open, setOpen] = useState(false);
@@ -72,12 +72,12 @@ const Profile = () => {
   useEffect(() => {
     if (token) {
       loadUserProfileData();
-      
+
     }
-     
+
   }, [token]);
- 
-   
+
+
   return (
     <div className="max-w-4xl mx-auto px-4 my-24">
       <h1 className="font-bold text-2xl text-center md:text-left">PROFILE</h1>
@@ -89,8 +89,9 @@ const Profile = () => {
               alt="@shadcn"
             />
             <AvatarFallback>
-             {userData?.name?.[0] ? userData.name[0].toUpperCase() : "N/A"}
-
+              {userData?.name && userData.name.length > 0
+                ? userData.name[0].toUpperCase()
+                : "N/A"}
             </AvatarFallback>
           </Avatar>
         </div>
@@ -131,7 +132,7 @@ const Profile = () => {
             <h1 className="font-semibold text-gray-900 dark:text-gray-100">
               Branch:
               <span className="font-normal text-gray-700 dark:text-gray-300 ml-2">
-              {userData?.branch ? userData.branch.toUpperCase() : "N/A"}
+                {userData?.branch ? userData.branch.toUpperCase() : "N/A"}
               </span>
             </h1>
           </div>
@@ -156,7 +157,7 @@ const Profile = () => {
                     type="text"
                     placeholder="Name"
                     className="col-span-3"
-                    value={userData.name}
+                    value={userData.name || ""}
                     onChange={(e) =>
                       setUserData((prev) => ({ ...prev, name: e.target.value }))
                     }
@@ -237,16 +238,16 @@ const Profile = () => {
             <h1>You haven't enrolled yet</h1>
           ) : (
             userData?.enrolledCourses?.map((course) => (
-              <Course 
+              <Course
                 key={course._id}
-                id={course._id} 
+                id={course._id}
                 branch={course.branch}
                 courseTitle={course.courseTitle}
                 courseThumbnail={course.courseThumbnail}
                 lecturerName={course.lecturerData.name}
-                lecturerPhoto={course.lecturerData.photoUrl} 
+                lecturerPhoto={course.lecturerData.photoUrl}
                 semester={course.semester}
-                />
+              />
             ))
           )}
         </div>
